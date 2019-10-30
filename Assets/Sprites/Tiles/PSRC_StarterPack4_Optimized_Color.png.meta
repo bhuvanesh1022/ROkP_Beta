@@ -1,0 +1,1745 @@
+fileFormatVersion: 2
+guid: f1bd54ec0076746018db4badb39e5cab
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3420835711568308872
+    second: PSRC_StarterPack4_Optimized_Color_0
+  - first:
+      213: 4218666498708166268
+    second: PSRC_Barrel
+  - first:
+      213: -4116092104490285296
+    second: PSRC_Drum
+  - first:
+      213: 3295523967953014450
+    second: PSRC_Crate
+  - first:
+      213: 8178005643060710843
+    second: PSRC_StarterPack4_Optimized_Color_4
+  - first:
+      213: 6610406390636680852
+    second: PSRC_StarterPack4_Optimized_Color_5
+  - first:
+      213: -3009500479682884402
+    second: PSRC_Log
+  - first:
+      213: 5602048235955084908
+    second: PSRC_StarterPack4_Optimized_Color_7
+  - first:
+      213: -5428387959038114179
+    second: PSRC_Beam
+  - first:
+      213: -7330533332116387509
+    second: PSRC_Ladder
+  - first:
+      213: 5451317224076665218
+    second: PSRC_StarterPack4_Optimized_Color_10
+  - first:
+      213: -6544934138828508119
+    second: PSRC_StarterPack4_Optimized_Color_11
+  - first:
+      213: -100852632615611710
+    second: PSRC_StarterPack4_Optimized_Color_12
+  - first:
+      213: -5519338843849215424
+    second: PSRC_StarterPack4_Optimized_Color_13
+  - first:
+      213: -8307618667085944780
+    second: PSRC_StarterPack4_Optimized_Color_14
+  - first:
+      213: 562088672956009898
+    second: PSRC_StarterPack4_Optimized_Color_15
+  - first:
+      213: 4733679452042502431
+    second: PSRC_StarterPack4_Optimized_Color_16
+  - first:
+      213: 6375886229385127813
+    second: PSRC_StarterPack4_Optimized_Color_17
+  - first:
+      213: 8369524046142057843
+    second: PSRC_StarterPack4_Optimized_Color_18
+  - first:
+      213: 5194125742138120850
+    second: PSRC_StarterPack4_Optimized_Color_19
+  - first:
+      213: 7224342971269720957
+    second: PSRC_StarterPack4_Optimized_Color_20
+  - first:
+      213: 845350487547199326
+    second: PSRC_StarterPack4_Optimized_Color_21
+  - first:
+      213: -8088724486999455814
+    second: PSRC_StarterPack4_Optimized_Color_22
+  - first:
+      213: 3589990457978578921
+    second: PSRC_StarterPack4_Optimized_Color_23
+  - first:
+      213: 7839827610651134236
+    second: PSRC_StarterPack4_Optimized_Color_24
+  - first:
+      213: 4857872320722653649
+    second: PSRC_StarterPack4_Optimized_Color_25
+  - first:
+      213: -7074711799476640744
+    second: PSRC_StarterPack4_Optimized_Color_26
+  - first:
+      213: -8947539541284311379
+    second: PSRC_StarterPack4_Optimized_Color_27
+  - first:
+      213: 7108650684439858579
+    second: PSRC_StarterPack4_Optimized_Color_28
+  - first:
+      213: -3754267215285914920
+    second: PSRC_StarterPack4_Optimized_Color_29
+  - first:
+      213: -8145791287240205594
+    second: PSRC_StarterPack4_Optimized_Color_30
+  - first:
+      213: -7454131875976938402
+    second: PSRC_StarterPack4_Optimized_Color_31
+  - first:
+      213: -2465745446147558352
+    second: PSRC_StarterPack4_Optimized_Color_32
+  - first:
+      213: -5782799752833857969
+    second: PSRC_StarterPack4_Optimized_Color_33
+  - first:
+      213: 2384267577365008724
+    second: PSRC_StarterPack4_Optimized_Color_34
+  - first:
+      213: -7613482540563720615
+    second: PSRC_StarterPack4_Optimized_Color_35
+  - first:
+      213: -3298657001170949116
+    second: PSRC_StarterPack4_Optimized_Color_36
+  - first:
+      213: 3681274318729813547
+    second: PSRC_StarterPack4_Optimized_Color_37
+  - first:
+      213: 1455967609822595280
+    second: PSRC_StarterPack4_Optimized_Color_38
+  - first:
+      213: 7575629644774941985
+    second: PSRC_StarterPack4_Optimized_Color_39
+  - first:
+      213: 5683496264295590877
+    second: PSRC_StarterPack4_Optimized_Color_40
+  - first:
+      213: 3252561922291762299
+    second: PSRC_StarterPack4_Optimized_Color_41
+  - first:
+      213: -3485660520528532597
+    second: PSRC_StarterPack4_Optimized_Color_42
+  - first:
+      213: 5317786972019237068
+    second: PSRC_StarterPack4_Optimized_Color_43
+  - first:
+      213: 1042025721646529369
+    second: PSRC_StarterPack4_Optimized_Color_44
+  - first:
+      213: -8400912035280713026
+    second: PSRC_StarterPack4_Optimized_Color_45
+  - first:
+      213: 8615160207175668444
+    second: PSRC_StarterPack4_Optimized_Color_46
+  - first:
+      213: -4831706420696523030
+    second: PSRC_StarterPack4_Optimized_Color_47
+  - first:
+      213: -3549934993772024020
+    second: PSRC_StarterPack4_Optimized_Color_48
+  - first:
+      213: 3540250431445740478
+    second: PSRC_StarterPack4_Optimized_Color_49
+  - first:
+      213: -4678543135868094825
+    second: PSRC_StarterPack4_Optimized_Color_50
+  - first:
+      213: 1447530728920595879
+    second: PSRC_StarterPack4_Optimized_Color_51
+  - first:
+      213: -6168966426769118046
+    second: PSRC_StarterPack4_Optimized_Color_52
+  - first:
+      213: -6967893784390018374
+    second: PSRC_StarterPack4_Optimized_Color_53
+  - first:
+      213: 7821302688595785386
+    second: PSRC_StarterPack4_Optimized_Color_54
+  - first:
+      213: 5921865399247709675
+    second: PSRC_StarterPack4_Optimized_Color_55
+  - first:
+      213: -4750003017577335622
+    second: PSRC_StarterPack4_Optimized_Color_56
+  - first:
+      213: 8416083662354707596
+    second: PSRC_StarterPack4_Optimized_Color_57
+  - first:
+      213: -47376286045967604
+    second: PSRC_StarterPack4_Optimized_Color_58
+  - first:
+      213: -2860423168998330803
+    second: PSRC_StarterPack4_Optimized_Color_59
+  - first:
+      213: -5574673600739543609
+    second: PSRC_Wooden_strip
+  - first:
+      213: -8502005416289888388
+    second: PSRC_StarterPack4_Optimized_Color_61
+  - first:
+      213: -581255222847790915
+    second: PSRC_StarterPack4_Optimized_Color_62
+  - first:
+      213: 8471654883653666331
+    second: PSRC_StarterPack4_Optimized_Color_63
+  - first:
+      213: 2800010479474507713
+    second: PSRC_StarterPack4_Optimized_Color_64
+  - first:
+      213: 1421673771691711031
+    second: PSRC_StarterPack4_Optimized_Color_65
+  - first:
+      213: 1775962897550190630
+    second: PSRC_StarterPack4_Optimized_Color_66
+  - first:
+      213: 3667077288554818756
+    second: PSRC_Ladder_tile
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 10
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 202
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e2808df52eb948228d568818f067ba8
+      internalID: -3420835711568308872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_Barrel
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 216
+        width: 25
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84f3d5e02b1ab418dbfc420dfaaaba55
+      internalID: 4218666498708166268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_Drum
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 215
+        width: 23
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42677d4350cf04d3fb012037b14698e9
+      internalID: -4116092104490285296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_Crate
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 222
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef4b1692aed5244cfb6b8104a3ce4284
+      internalID: 3295523967953014450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_4
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 212
+        width: 4
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f098c0679753c44c3b165340cfe7ec00
+      internalID: 8178005643060710843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_5
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 222
+        width: 6
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7bd28cfcb6234dca8ddbafd30e5568a
+      internalID: 6610406390636680852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_Log
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 240
+        width: 70
+        height: 12
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 5, y: 0, z: 4, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fe5c263949b84e12925e1d07b572a54
+      internalID: -3009500479682884402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_7
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 240
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04f264dc1e4d441a2a4171db9d60d8c7
+      internalID: 5602048235955084908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_Beam
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 225
+        width: 80
+        height: 10
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 10, y: 0, z: 10, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d3396c38a928426ea2bb909d8986b43
+      internalID: -5428387959038114179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_Ladder
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 183
+        width: 123
+        height: 15
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 2, y: 13, z: 1, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cee24a9d6e474dbdbf6fccb61c93bc2
+      internalID: -7330533332116387509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_10
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 181
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2f8d0a674c274e4c985802cc863a8dd
+      internalID: 5451317224076665218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_11
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 183
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5fc12cf98b6f4746a33df64deb9851a
+      internalID: -6544934138828508119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_12
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 183
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f096db69decc54ad5a19dde85863c68e
+      internalID: -100852632615611710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_13
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 185
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7bff86db7d674e6d8bc9474279e919b
+      internalID: -5519338843849215424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_14
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 192
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faa3a8857eee641019d0419f4ed577fb
+      internalID: -8307618667085944780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_15
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 193
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60b4905b99e114589956baf3a356c6be
+      internalID: 562088672956009898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_16
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 185
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0913e0eea7a5f4cf8b7550b23b06156b
+      internalID: 4733679452042502431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_17
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 141
+        width: 12
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1949b62b4e8fd4de58833520465efb76
+      internalID: 6375886229385127813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_18
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 150
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b2804d8bff914477ae31278bafb1aad
+      internalID: 8369524046142057843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_19
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 151
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58183933e64404fdaa3ba4d7231ed9e5
+      internalID: 5194125742138120850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_20
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 143
+        width: 14
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f1bef3c2dd984f1d8e1c13dca90d22e
+      internalID: 7224342971269720957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_21
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 144
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c3b6925dc1dd465d9e690abc6b27f71
+      internalID: 845350487547199326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_22
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 145
+        width: 18
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aaefa62b288747c7a486f6740b4fe74
+      internalID: -8088724486999455814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_23
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 149
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cf1459386e0b4bb3a9f0d76943db4e8
+      internalID: 3589990457978578921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_24
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 151
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20794c62e43514991a0c99fecd3f7cb2
+      internalID: 7839827610651134236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_25
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 153
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f146f3c8832f4b949f0d0a8198f1705
+      internalID: 4857872320722653649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_26
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 160
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5aaf2d880ce1437cbd405df9ad97577
+      internalID: -7074711799476640744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_27
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 157
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70239dcc66619437fb6d44f95ab65b25
+      internalID: -8947539541284311379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_28
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 168
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79ed90c5d4f9a445b927a0e094d796ca
+      internalID: 7108650684439858579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_29
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 153
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb46ff1481eed4b64a3fc3b263456646
+      internalID: -3754267215285914920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_30
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 125
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa87bba416b894b1396cb83beccabbc0
+      internalID: -8145791287240205594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_31
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 124
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53a4770c4019f45d3a5039e2b4994129
+      internalID: -7454131875976938402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_32
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 126
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a04cc931b31b1429181a30913b54ddaf
+      internalID: -2465745446147558352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_33
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 123
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fccd51cdb79744e909b8ca8dada68d7b
+      internalID: -5782799752833857969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_34
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 126
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d653f54ecf8004e8897a1a336293b1bb
+      internalID: 2384267577365008724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_35
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 130
+        width: 40
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa9ec8347cd5b4e449c9099de08c1e73
+      internalID: -7613482540563720615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_36
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 129
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ec5eb1a4d974f169c97fd995735ea4
+      internalID: -3298657001170949116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_37
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 133
+        width: 16
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd4eb73e2762f484c8f5bbd55ac26b45
+      internalID: 3681274318729813547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_38
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 130
+        width: 40
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 206122b1f985f4f1ebe3d62e8edaa9de
+      internalID: 1455967609822595280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_39
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 133
+        width: 33
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8d8b93432d1a46a4bc1e5612ebb77dc
+      internalID: 7575629644774941985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_40
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 97
+        width: 4
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a94d6580205454777974ffd245370782
+      internalID: 5683496264295590877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_41
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 101
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59e17dbea385b442486136a3bcecd5ea
+      internalID: 3252561922291762299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_42
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 111
+        width: 62
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef4f0a468874b48f3aa42ca4732c6f5a
+      internalID: -3485660520528532597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_43
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 113
+        width: 41
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8e33a60627a14afeb168b912c2ab138
+      internalID: 5317786972019237068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_44
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 113
+        width: 22
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 980e38b6fd12047be84d596185e136b4
+      internalID: 1042025721646529369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_45
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 110
+        width: 30
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9ddc970401a44c9e9bb39ec335e49b7
+      internalID: -8400912035280713026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_46
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 113
+        width: 30
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08f0c4a3be31840188168a08f1b9fba3
+      internalID: 8615160207175668444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_47
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 83
+        width: 45
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69510f1d453df46c0be6df195d16136e
+      internalID: -4831706420696523030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_48
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 83
+        width: 40
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa99cff551bad4903855f005ac9eb1ed
+      internalID: -3549934993772024020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_49
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 83
+        width: 40
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b1c2647b4c6348d2aa48d0a7ca10998
+      internalID: 3540250431445740478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_50
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 83
+        width: 88
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d17c3c04c5924557a4203695fbf2bf1
+      internalID: -4678543135868094825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_51
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 64
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48d2d98488c044dcfb62766744be8d17
+      internalID: 1447530728920595879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_52
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 65
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 263cc2882bf8d4348a0e529cd942155e
+      internalID: -6168966426769118046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_53
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 66
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b95e3dd95cf044118a7b12aac4d89f17
+      internalID: -6967893784390018374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_54
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 68
+        width: 4
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f7105853fb1d4b5cbfb35a5f7dcd3b1
+      internalID: 7821302688595785386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_55
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 67
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59e31a212673049babd576ad05dc9d3e
+      internalID: 5921865399247709675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_56
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 65
+        width: 35
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a16cc5da176294283bef4d2c15e9e0e1
+      internalID: -4750003017577335622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_57
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 69
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad3d89462b6047a0aa97f361b799c13
+      internalID: 8416083662354707596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_58
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 65
+        width: 55
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e22b9e1f9cfd24644b349caf80f20eae
+      internalID: -47376286045967604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_59
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 68
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdce7b0c972b445e79a17de6c328a721
+      internalID: -2860423168998330803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_Wooden_strip
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 58
+        width: 20
+        height: 2
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 2, y: 0, z: 2, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e0af19ae16a248b0b4db60d642dca62
+      internalID: -5574673600739543609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_61
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 50
+        width: 53
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e2f89bc7758d4b81bccb8d5a1e7a501
+      internalID: -8502005416289888388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_62
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 51
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e910024c9ead4a9aa2941f716704755
+      internalID: -581255222847790915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_63
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 36
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dec7687a10b94f8a8cea6dd9f4db8cc
+      internalID: 8471654883653666331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_64
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 36
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47cd2255f5dd547aaa7a5b192770cc44
+      internalID: 2800010479474507713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_65
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 50
+        width: 24
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09837e1a94a7c40a3a1509b27fc305fd
+      internalID: 1421673771691711031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PSRC_StarterPack4_Optimized_Color_66
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 50
+        width: 24
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3529ffc8e083740a49da0340e3eeba6b
+      internalID: 1775962897550190630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: c1028ebb3d94342c4ac5e37eb669cd86
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
