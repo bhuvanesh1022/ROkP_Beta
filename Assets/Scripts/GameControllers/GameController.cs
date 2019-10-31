@@ -22,6 +22,7 @@ public class GameController : MonoBehaviourPun
     public GameObject waitingSign;
     public GameObject[] countdown;
     public List<GameObject> PowerUpBtns = new List<GameObject>();
+    public List<GameObject> PoweredRunners = new List<GameObject>();
 
     public bool startRace;
 
@@ -57,7 +58,7 @@ public class GameController : MonoBehaviourPun
     private void CreatePlayer()
     {
         Runner = PhotonNetwork.Instantiate(Path.Combine(DC.myCharacter), Vector3.zero, Quaternion.identity).gameObject;
-        Runner.GetComponent<PlayerController>().UserName = DC.myName;
+        //Runner.GetComponent<PlayerController>().UserName = DC.myName;
         myCam.GetComponent<CameraFollow>().target = Runner.transform;
     }
 
