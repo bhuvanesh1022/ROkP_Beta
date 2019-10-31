@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PowerUpManager : MonoBehaviour
+public class PowerUpManager : MonoBehaviourPun, IPunObservable
 {
     public string Slinger;
+    public string Victim;
+    public GameObject VictimObj;
     public enum TypeOfPowerups { SpeedBoost, Throwable, Thrown };
     public TypeOfPowerups Powerup;
 
@@ -23,7 +25,10 @@ public class PowerUpManager : MonoBehaviour
     public void Start()
     {
         if (Powerup == TypeOfPowerups.Thrown)
-            Destroy(gameObject, 20.0f);
+        {
+            pv.RPC("DestroyThrownObj", RpcTarget.AllBuffered, null);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(50f, 0.0f);
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -32,24 +37,63 @@ public class PowerUpManager : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<PlayerController>().pv.IsMine)
             {
-                for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
-                {
-                    if (gameController.PowerUpBtns[i].name == Powerup.ToString())
-                        gameController.PowerUpBtns[i].SetActive(true);
-                    else
-                        gameController.PowerUpBtns[i].SetActive(false);
-                }
-
-                pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
+                EnablePowerUp();
             }
-            else
+
+            switch (Powerup)
             {
-                Debug.Log(Slinger + " Hit " + collision.gameObject.GetComponent<PlayerController>().UserName);
+                case TypeOfPowerups.SpeedBoost:
 
-                collision.gameObject.GetComponent<PlayerController>().GotAttack();
-                Destroy(gameObject, 0.1f);
+                    pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
+                    break;
+
+                case TypeOfPowerups.Throwable:
+
+                    pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
+                    break;
+
+                case TypeOfPowerups.Thrown:
+
+                    if (!collision.gameObject.GetComponent<PlayerController>().pv.IsMine)
+                    {
+                        Victim = collision.gameObject.GetComponent<PlayerController>().UserName;
+                        Debug.Log(Victim);
+                        VictimObj = collision.gameObject;
+                        pv.RPC("BeenAttack", RpcTarget.AllBuffered, null);
+                    }
+                    break;
+
+                default:
+                    break;
             }
+
+
         }
+    }
+
+    public void EnablePowerUp()
+    {
+        for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
+        {
+            if (gameController.PowerUpBtns[i].name == Powerup.ToString())
+                gameController.PowerUpBtns[i].SetActive(true);
+            else
+                gameController.PowerUpBtns[i].SetActive(false);
+        }
+    }
+
+    [PunRPC]
+    public void BeenAttack()
+    {
+        VictimObj.GetComponent<PlayerController>().GotAttack();
+        Destroy(gameObject, 0.1f);
+        Debug.Log(Slinger + " Hit " + Victim);
+    }
+
+    [PunRPC]
+    public void DestroyThrownObj()
+    {
+        Destroy(gameObject, 20.0f);
     }
 
     [PunRPC]
@@ -69,5 +113,17 @@ public class PowerUpManager : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
     }
 
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(Slinger);
+            stream.SendNext(Victim);
+        }
+        else if (stream.IsReading)
+        {
+           Slinger = (string) stream.ReceiveNext();
+           Victim = (string)stream.ReceiveNext();
+        }
+    }
 }

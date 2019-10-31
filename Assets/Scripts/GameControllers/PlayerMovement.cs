@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     [SerializeField] private LayerMask m_WhatIsWall;
     [SerializeField] private Transform m_GroundCheck;
     [SerializeField] private Transform m_WallCheck;
-    [SerializeField] private Animator m_Animator;
 
     #endregion
 
@@ -30,13 +29,14 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     public float WallCheckWi;
     public float WallCheckHi;
     public float runspeed;
+    public Rigidbody2D m_Rigidbody2D;
+    public Animator m_Animator;
     public PhotonView pv;
 
     #endregion
 
     #region [Private Variables]
 
-    private Rigidbody2D m_Rigidbody2D;
     private Vector3 iniScale;
     private Vector3 iniPos;
     private Vector3 m_Velocity = Vector3.zero;
@@ -56,7 +56,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        m_Rigidbody2D = GetComponent<Rigidbody2D>();
         m_playerController = GetComponent<PlayerController>();
         m_dataManager = GameObject.FindWithTag("Manager").GetComponent<DataManager>();
     }
@@ -196,14 +195,13 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            Debug.Log(m_Grounded);
             if (m_WallInFront)
             {
                 Vector3 scale = transform.localScale;
                 scale.x *= -1;
                 facingFront = !facingFront;
                 transform.localScale = scale;
-                m_Rigidbody2D.velocity = new Vector2(0, 0);
+                m_Rigidbody2D.velocity = Vector2.zero;
 
                 if (!facingFront)
                     m_Rigidbody2D.AddForce(new Vector2(-m_dataManager.m_WallJumpForce, m_dataManager.m_WallJumpAmplitude), ForceMode2D.Impulse);

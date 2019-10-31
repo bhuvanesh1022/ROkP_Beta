@@ -85,6 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slinger: 
+  Victim: 
+  VictimObj: {fileID: 0}
   Powerup: 2
 --- !u!114 &5302262225772273937
 MonoBehaviour:

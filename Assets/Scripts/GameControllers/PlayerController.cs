@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private DataManager dataManager;
     private GameController gameController;
     private PlayerMovement playerMovement;
+    private Vector3 SpawnPoint;
     private int totalRunners;
 
     public float FinishDistance;
@@ -23,9 +24,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     public RunnerState currentState;
     public Sprite[] posSprites;
     public Sprite ScoreBoardSprite;
-    public Animator animator;
-    public Transform SpawnPoint;
     public SpriteMeshInstance[] skin;
+    public GameObject throwingObj;
     public PhotonView pv;
 
 
@@ -58,11 +58,17 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
         if (pv.IsMine)
         {
+            UserName = PhotonNetwork.NickName;
             for (int i = 0; i < skin.Length; i++)
             {
                 skin[i].sortingOrder++;
             }
         }
+        else
+        {
+            UserName = pv.Owner.NickName;
+        }
+
     }
 
     private void Update()
@@ -161,10 +167,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 if (dataManager.FinishedRunners[i].isFinished)
                 {
                     if (dataManager.FinishedRunners[i].isWon)
-                        dataManager.FinishedRunners[i].animator.SetBool("win", true);
+                        dataManager.FinishedRunners[i].playerMovement.m_Animator.SetBool("win", true);
 
                     else
-                        dataManager.FinishedRunners[i].animator.SetBool("loss", true);
+                        dataManager.FinishedRunners[i].playerMovement.m_Animator.SetBool("loss", true);
 
                 }
             }
@@ -193,9 +199,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     public void ThrowUp()
     {
         gameController.PowerUpBtns[1].SetActive(false);
-        GameObject throwingObj = PhotonNetwork.Instantiate("Thrown", SpawnPoint.position, Quaternion.identity);
+        Debug.Log(UserName + " is throwing...");
+        SpawnPoint = transform.position + new Vector3(2.0f, 2.0f, 0.0f);
+        throwingObj = PhotonNetwork.Instantiate("Thrown", SpawnPoint, Quaternion.identity);
         throwingObj.GetComponent<PowerUpManager>().Slinger = UserName;
-        throwingObj.GetComponent<Rigidbody2D>().velocity = new Vector2(50f, 0.0f);
     }
 
     public void GotAttack()
@@ -206,6 +213,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     IEnumerator Attacked()
     {
         canRace = false;
+        playerMovement.m_Rigidbody2D.velocity = Vector2.zero;
+
         yield return new WaitForSeconds(1.5f);
         canRace = true;
     }
@@ -219,8 +228,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
         else if (stream.IsReading)
         {
-            isFinished = (bool)stream.ReceiveNext();
-            UserName = (string)stream.ReceiveNext();
+            isFinished = (bool) stream.ReceiveNext();
+            UserName = (string) stream.ReceiveNext();
         }
     }
 
