@@ -8,28 +8,28 @@ using Anima2D;
 
 public class PlayerController : MonoBehaviourPun, IPunObservable
 {
+
     private DataManager dataManager;
     private GameController gameController;
     private PlayerMovement playerMovement;
-    private Vector3 SpawnPoint;
     private int totalRunners;
+
 
     public float FinishDistance;
     public string UserName;
     public bool isWon;
     public bool isFinished;
     public bool canRace;
+    public int speedingPlayerIndex;
+    public int throwingPlayerIndex;
 
     public enum RunnerState { run, speedRun, stun};
     public RunnerState currentState;
+    public Transform SpawnPoint;
     public Sprite[] posSprites;
     public Sprite ScoreBoardSprite;
     public SpriteMeshInstance[] skin;
-    public GameObject throwingObj;
     public PhotonView pv;
-
-
-
 
     private void Awake()
     {
@@ -38,11 +38,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         playerMovement = GetComponent<PlayerMovement>();
         canRace = false;
 
-        gameController.PowerUpBtns[0].GetComponent<Button>().onClick.RemoveAllListeners();
-        gameController.PowerUpBtns[0].GetComponent<Button>().onClick.AddListener(() => SpeedUp());
+        if (pv.IsMine)
+        {
+            gameController.LocalPlayer = gameObject;
+        }
 
-        gameController.PowerUpBtns[1].GetComponent<Button>().onClick.RemoveAllListeners();
-        gameController.PowerUpBtns[1].GetComponent<Button>().onClick.AddListener(() => ThrowUp());
     }
 
     private void Start()
@@ -73,13 +73,34 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private void Update()
     {
-        if(!canRace)
+        if (gameController.SpeedPoweredRunners.Contains(gameObject))
+        {
+            speedingPlayerIndex = gameController.SpeedPoweredRunners.FindIndex(x => x.GetComponent<PlayerController>().UserName == UserName);
+        }
+        else
+        {
+            speedingPlayerIndex = -1;
+        }
+
+
+        if (gameController.ThrowPoweredRunners.Contains(gameObject))
+        {
+            throwingPlayerIndex = gameController.ThrowPoweredRunners.FindIndex(x => x.GetComponent<PlayerController>().UserName == UserName);
+        }
+        else
+        {
+            throwingPlayerIndex = -1;
+        }
+
+        if (!canRace)
             canRace = gameController.startRace;
 
         if (!isFinished)
         {
             pv.RPC("SyncPosition", RpcTarget.AllBuffered, null);
         }
+
+
     }
 
     [PunRPC]
@@ -143,11 +164,42 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Finish"))
+        switch (collision.tag)
         {
-            isFinished = true;
-            FinishedRace();
+            case "Finish":
+
+                isFinished = true;
+                FinishedRace();
+                break;
+
+            //case "SpeedBoost":
+
+            //    break;
+
+            //case "Throwable":
+
+                //break;
+
+
+            default:
+
+                if (!collision.CompareTag("Player"))
+                {
+                    for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
+                    {
+                        gameController.PowerUpBtns[i].SetActive(false);
+
+                        if (gameController.PowerUpBtns[i].name == collision.tag)
+                        {
+                            gameController.PowerUpBtns[i].SetActive(true);
+                        }
+                    }
+                    Debug.Log(collision.tag);
+                }
+                break;
+
         }
+
 
     }
 
@@ -175,34 +227,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 }
             }
         }
-    }
-
-    public void SpeedUp()
-    {
-        gameController.PowerUpBtns[0].SetActive(false);
-        StartCoroutine(BoostSpeed());
-    }
-
-    public IEnumerator BoostSpeed()
-    {
-        float temp = playerMovement.runspeed;
-        dataManager.m_TargetSpeed += 30;
-        dataManager.m_MaxRunForce += 1000;
-
-        yield return new WaitForSeconds(1.0f);
-
-        dataManager.m_TargetSpeed -= 30;
-        dataManager.m_MaxRunForce -= 1000;
-        playerMovement.runspeed = temp;
-    }
-
-    public void ThrowUp()
-    {
-        gameController.PowerUpBtns[1].SetActive(false);
-        Debug.Log(UserName + " is throwing...");
-        SpawnPoint = transform.position + new Vector3(2.0f, 2.0f, 0.0f);
-        throwingObj = PhotonNetwork.Instantiate("Thrown", SpawnPoint, Quaternion.identity);
-        throwingObj.GetComponent<PowerUpManager>().Slinger = UserName;
     }
 
     public void GotAttack()

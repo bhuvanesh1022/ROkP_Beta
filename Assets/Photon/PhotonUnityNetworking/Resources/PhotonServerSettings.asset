@@ -42,5 +42,7 @@ MonoBehaviour:
   - DisablePickup
   - BeenAttack
   - DestroyThrownObj
+  - SpeedBoostActivate
+  - ThrowBoostActivate
   DisableAutoOpenWizard: 1
   ShowSettings: 1

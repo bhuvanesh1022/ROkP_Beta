@@ -140,7 +140,6 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
                 PhotonNetwork.LoadLevel(multiPlayerSceneIndex);
-
             }
         }
     }

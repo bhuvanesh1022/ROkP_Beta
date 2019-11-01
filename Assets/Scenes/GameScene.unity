@@ -172,6 +172,7 @@ MonoBehaviour:
   - {fileID: 66235311}
   - {fileID: 2043635021}
   finishLine: {fileID: 0}
+  LocalPlayer: {fileID: 0}
   startBtn: {fileID: 530556052}
   waitingSign: {fileID: 998583821}
   countdown:
@@ -181,6 +182,9 @@ MonoBehaviour:
   PowerUpBtns:
   - {fileID: 769936031}
   - {fileID: 462742588}
+  SpeedPoweredRunners: []
+  ThrowPoweredRunners: []
+  GotHitRunners: []
   startRace: 0
   pv: {fileID: 61864344}
 --- !u!114 &61864344
@@ -1501,7 +1505,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 462742591}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 61864343}
+        m_MethodName: ThrowUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &462742591
@@ -2260,7 +2275,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 769936034}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 61864343}
+        m_MethodName: SpeedUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &769936034

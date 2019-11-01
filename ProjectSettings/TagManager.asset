@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Manager
   - DataController
+  - SpeedBoost
+  - Throwable
+  - Thrown
   layers:
   - Default
   - TransparentFX

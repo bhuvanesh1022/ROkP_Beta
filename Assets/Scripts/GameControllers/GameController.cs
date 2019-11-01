@@ -10,6 +10,7 @@ public class GameController : MonoBehaviourPun
     public static GameController gameController;
 
     private DataController DC;
+    private DataManager DM;
     private Camera myCam;
     private GameObject Runner;
 
@@ -17,12 +18,14 @@ public class GameController : MonoBehaviourPun
     public GameObject[] Tracks;
     public List<Transform> finishPoints = new List<Transform>();
     public Transform finishLine;
-
+    public GameObject LocalPlayer;
     public GameObject startBtn;
     public GameObject waitingSign;
     public GameObject[] countdown;
     public List<GameObject> PowerUpBtns = new List<GameObject>();
-    public List<GameObject> PoweredRunners = new List<GameObject>();
+    public List<GameObject> SpeedPoweredRunners = new List<GameObject>();
+    public List<GameObject> ThrowPoweredRunners = new List<GameObject>();
+    public List<GameObject> GotHitRunners = new List<GameObject>();
 
     public bool startRace;
 
@@ -36,6 +39,7 @@ public class GameController : MonoBehaviourPun
         }
 
         DC = GameObject.FindWithTag("DataController").GetComponent<DataController>();
+        DM = GameObject.FindWithTag("Manager").GetComponent<DataManager>();
         myCam = Camera.main;
         startRace = false;
     }
@@ -105,5 +109,35 @@ public class GameController : MonoBehaviourPun
     public void CloseApp()
     {
         Application.Quit();
+    }
+
+    public void SpeedUp()
+    {
+        PowerUpBtns[0].SetActive(false);
+        StartCoroutine(BoostSpeed());
+    }
+
+    public IEnumerator BoostSpeed()
+    {
+        float temp = SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
+        DM.m_TargetSpeed += 30;
+        DM.m_MaxRunForce += 1000;
+
+        yield return new WaitForSeconds(1.0f);
+
+        DM.m_TargetSpeed -= 30;
+        DM.m_MaxRunForce -= 1000;
+        SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
+    }
+
+    public void ThrowUp()
+    {
+        PowerUpBtns[1].SetActive(false);
+
+        GameObject throwingObj = PhotonNetwork.Instantiate("Thrown", LocalPlayer.GetComponent<PlayerController>().SpawnPoint.position, Quaternion.identity);
+        throwingObj.GetComponent<PowerController>().Thrower = LocalPlayer;
+
+        Debug.Log(ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].GetComponent<PlayerController>().UserName + " is throwing...");
+        ThrowPoweredRunners.Remove(gameObject);
     }
 }
