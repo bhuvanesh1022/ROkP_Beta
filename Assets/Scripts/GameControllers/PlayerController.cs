@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     public enum RunnerState { run, speedRun, stun};
     public RunnerState currentState;
     public Transform SpawnPoint;
+    public GameObject TriggeredBy;
     public Sprite[] posSprites;
     public Sprite ScoreBoardSprite;
     public SpriteMeshInstance[] skin;
@@ -49,7 +50,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         isFinished = false;
         isWon = false;
-        canRace = false;
 
         if (!dataManager.Runners.Contains(GetComponent<PlayerController>()))
         {
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         if (pv.IsMine)
         {
             UserName = PhotonNetwork.NickName;
+
             for (int i = 0; i < skin.Length; i++)
             {
                 skin[i].sortingOrder++;
@@ -92,8 +93,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             throwingPlayerIndex = -1;
         }
 
-        if (!canRace)
-            canRace = gameController.startRace;
+        //if (!canRace)
+            //canRace = gameController.startRace;
 
         if (!isFinished)
         {
@@ -164,7 +165,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.tag)
+        TriggeredBy = collision.gameObject;
+
+        switch (TriggeredBy.tag)
         {
             case "Finish":
 
@@ -172,34 +175,14 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 FinishedRace();
                 break;
 
-            //case "SpeedBoost":
+            case "Thrown":
 
-            //    break;
-
-            //case "Throwable":
-
-                //break;
-
-
-            default:
-
-                if (!collision.CompareTag("Player"))
+                if (!gameController.VictimRunners.Contains(gameObject))
                 {
-                    for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
-                    {
-                        gameController.PowerUpBtns[i].SetActive(false);
-
-                        if (gameController.PowerUpBtns[i].name == collision.tag)
-                        {
-                            gameController.PowerUpBtns[i].SetActive(true);
-                        }
-                    }
-                    Debug.Log(collision.tag);
+                    gameController.VictimRunners.Add(gameObject);
                 }
-                break;
-
+                    break;
         }
-
 
     }
 
@@ -223,7 +206,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
                     else
                         dataManager.FinishedRunners[i].playerMovement.m_Animator.SetBool("loss", true);
-
                 }
             }
         }
@@ -231,16 +213,30 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public void GotAttack()
     {
-        StartCoroutine(Attacked());
+        gameController.VictimRunners.Remove(gameObject);
+
+        if (pv.IsMine)
+        {
+            StartCoroutine(Attacked());
+        }
     }
 
     IEnumerator Attacked()
     {
         canRace = false;
-        playerMovement.m_Rigidbody2D.velocity = Vector2.zero;
+        StartCoroutine(StunRunner(transform.position));
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         canRace = true;
+    }
+
+    IEnumerator StunRunner(Vector3 pos)
+    {
+        while (!canRace)
+        {
+            transform.position = pos;
+            yield return null;
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

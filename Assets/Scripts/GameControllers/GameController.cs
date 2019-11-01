@@ -25,7 +25,7 @@ public class GameController : MonoBehaviourPun
     public List<GameObject> PowerUpBtns = new List<GameObject>();
     public List<GameObject> SpeedPoweredRunners = new List<GameObject>();
     public List<GameObject> ThrowPoweredRunners = new List<GameObject>();
-    public List<GameObject> GotHitRunners = new List<GameObject>();
+    public List<GameObject> VictimRunners = new List<GameObject>();
 
     public bool startRace;
 
@@ -99,6 +99,11 @@ public class GameController : MonoBehaviourPun
         }
 
         startRace = true;
+
+        for (int i = 0; i < DM.Runners.Count; i++)
+        {
+            DM.Runners[i].canRace = true;
+        }
     }
 
     public void ReloadApp()
@@ -128,6 +133,7 @@ public class GameController : MonoBehaviourPun
         DM.m_TargetSpeed -= 30;
         DM.m_MaxRunForce -= 1000;
         SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
+        //SpeedPoweredRunners.Remove(SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].gameObject);
     }
 
     public void ThrowUp()
@@ -135,9 +141,19 @@ public class GameController : MonoBehaviourPun
         PowerUpBtns[1].SetActive(false);
 
         GameObject throwingObj = PhotonNetwork.Instantiate("Thrown", LocalPlayer.GetComponent<PlayerController>().SpawnPoint.position, Quaternion.identity);
-        throwingObj.GetComponent<PowerController>().Thrower = LocalPlayer;
-
-        Debug.Log(ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].GetComponent<PlayerController>().UserName + " is throwing...");
-        ThrowPoweredRunners.Remove(gameObject);
+        throwingObj.GetComponent<PowerController>().Thrower = ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].GetComponent<PlayerController>().UserName;
+        //ThrowPoweredRunners.Remove(ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].gameObject);
     }
+
+    public void ShowHitText(string thrower, string victim)
+    {
+        pv.RPC("OnHit", RpcTarget.AllBuffered, thrower, victim);
+    }
+
+    [PunRPC]
+    public void OnHit(string thrower, string victim)
+    {
+        Debug.Log(thrower + " hit " + victim);
+    }
+
 }

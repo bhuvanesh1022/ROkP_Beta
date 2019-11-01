@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PowerController : MonoBehaviourPun
+public class PowerController : MonoBehaviourPun, IPunObservable
 {
     public enum PowerupTypes { SpeedBoost, Throwable, Thrown };
     public PowerupTypes powerup;
 
-    public List<GameObject> Triggered = new List<GameObject>();
-    public GameObject Thrower;
+    public string Thrower;
 
     private GameObject CollidedWith;
     private SpriteRenderer _sprite;
@@ -35,54 +34,60 @@ public class PowerController : MonoBehaviourPun
     {
         CollidedWith = collision.gameObject;
 
-        switch (powerup)
+        if (CollidedWith.CompareTag("Player"))
         {
-            case PowerupTypes.SpeedBoost:
+            switch (powerup)
+            {
+                case PowerupTypes.SpeedBoost:
 
-                if (!gameController.SpeedPoweredRunners.Contains(CollidedWith))
-                {
-                    gameController.SpeedPoweredRunners.Add(CollidedWith);
-                }
-                if (gameController.ThrowPoweredRunners.Contains(CollidedWith))
-                {
-                    gameController.ThrowPoweredRunners.Remove(CollidedWith);
-                }
-
-                pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
-                break;
-
-            case PowerupTypes.Throwable:
-
-                if (!gameController.ThrowPoweredRunners.Contains(CollidedWith))
-                {
-                    gameController.ThrowPoweredRunners.Add(CollidedWith);
-                }
-                if (gameController.SpeedPoweredRunners.Contains(CollidedWith))
-                {
-                    gameController.SpeedPoweredRunners.Remove(CollidedWith);
-                }
-
-                pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
-                break;
-
-            case PowerupTypes.Thrown:
-
-                if (collision.CompareTag("Player"))
-                {
-                    if (!collision.GetComponent<PlayerController>().pv.IsMine)
+                    if (!gameController.SpeedPoweredRunners.Contains(CollidedWith))
                     {
-                        if (!Triggered.Contains(collision.gameObject))
-                        {
-                            Triggered.Add(collision.gameObject);
-                        }
-
-                        Debug.Log(Triggered[Triggered.Count - 1].GetComponent<PlayerController>().UserName);
+                        gameController.SpeedPoweredRunners.Add(CollidedWith);
                     }
-                }
-                break;
+                    if (gameController.ThrowPoweredRunners.Contains(CollidedWith))
+                    {
+                        gameController.ThrowPoweredRunners.Remove(CollidedWith);
+                    }
+
+                    gameController.PowerUpBtns[0].SetActive(true);
+                    gameController.PowerUpBtns[1].SetActive(false);
+
+                    pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
+                    break;
+
+                case PowerupTypes.Throwable:
+
+                    if (!gameController.ThrowPoweredRunners.Contains(CollidedWith))
+                    {
+                        gameController.ThrowPoweredRunners.Add(CollidedWith);
+                    }
+                    if (gameController.SpeedPoweredRunners.Contains(CollidedWith))
+                    {
+                        gameController.SpeedPoweredRunners.Remove(CollidedWith);
+                    }
+
+                    gameController.PowerUpBtns[0].SetActive(false);
+                    gameController.PowerUpBtns[1].SetActive(true);
+
+                    pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
+                    break;
+
+                case PowerupTypes.Thrown:
+
+                    CollidedWith.GetComponent<PlayerController>().GotAttack();
+
+                    gameController.ShowHitText(Thrower, CollidedWith.GetComponent<PlayerController>().UserName);
+                    //pv.RPC("HitText", RpcTarget.AllBuffered, Thrower, CollidedWith.GetComponent<PlayerController>().UserName);
+
+                    if (!CollidedWith.GetComponent<PlayerController>().pv.IsMine)
+                    {
+
+                    }
+                    break;
+            }
         }
     }
-
+   
     [PunRPC]
     public void DisablePickup()
     {
@@ -98,5 +103,18 @@ public class PowerController : MonoBehaviourPun
 
         _sprite.enabled = true;
         GetComponent<Collider2D>().enabled = true;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(Thrower);
+        }
+        if (stream.IsReading)
+        {
+            Thrower = (string)stream.ReceiveNext();
+        }
+
     }
 }
