@@ -140,6 +140,7 @@ MonoBehaviour:
   throwingPlayerIndex: 0
   currentState: 0
   SpawnPoint: {fileID: 6182343672254891172}
+  TriggeredBy: {fileID: 0}
   posSprites:
   - {fileID: 21300000, guid: 15e212718b1174996a8da04925a30514, type: 3}
   - {fileID: 21300000, guid: 382827934daed4b9d8fdd06f4c7489ca, type: 3}

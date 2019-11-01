@@ -44,5 +44,8 @@ MonoBehaviour:
   - DestroyThrownObj
   - SpeedBoostActivate
   - ThrowBoostActivate
+  - GotAttack
+  - HitText
+  - OnHit
   DisableAutoOpenWizard: 1
   ShowSettings: 1

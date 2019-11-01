@@ -87,12 +87,17 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     private void FixedUpdate()
     {
+        //Debug.Log(m_playerController.canRace);
         if (m_playerController.canRace)
         {
             if (pv.IsMine)
                 MoveMe();
             else
                 SmoothMove();
+        }
+        else
+        {
+            m_Rigidbody2D.velocity = Vector2.zero;
         }
 
         m_WallInFront = Physics2D.OverlapBox(m_WallCheck.position, new Vector2(WallCheckWi, WallCheckHi), 0, m_WhatIsWall);

@@ -98,6 +98,8 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
             //CharacterSelection((int)player.CustomProperties["Avatar"]);
         }
         dataControl.myCharacter = characters[(int)PhotonNetwork.LocalPlayer.CustomProperties["Avatar"]].name;
+        pv.RPC("CharacterJoined", RpcTarget.AllBuffered, null);
+
     }
 
     public override void OnJoinedRoom()
@@ -188,8 +190,6 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
         else
             WaitingPanel.SetActive(true);
 
-        Debug.Log("conn");
-
         pv.RPC("CharacterJoined", RpcTarget.AllBuffered, null);
     }
 
@@ -200,9 +200,6 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
         {
             PlayerNames.Add(PhotonNetwork.LocalPlayer.NickName);
         }
-
-
-        Debug.Log(characterSelected);
     }
 
     IEnumerator WaitForOthers()
