@@ -20,15 +20,15 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
     [SerializeField] private Image mainPanel;
     [SerializeField] private DataController dataControl;
     [SerializeField] private GameObject tracksPanel;
-    [SerializeField] private GameObject characterPanel;
     [SerializeField] private GameObject[] characters;
     [SerializeField] private Sprite[] avatars;
+    [SerializeField] private GameObject EnterBtn;
     [SerializeField] private GameObject WaitingPanel;
     [SerializeField] private GameObject startButton;
-    [SerializeField] private List<string> PlayerNames = new List<string>();
 
     private GameObject templisting;
     private bool isTrackSelected;
+    private bool isEntered;
 
     public int characterSelected;
     public PhotonView pv;
@@ -81,16 +81,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
             Image tempImg = templisting.transform.GetChild(1).GetComponent<Image>();
             int CharacterID = (int)player.CustomProperties["Avatar"];
             tempImg.sprite = avatars[CharacterID];
-
-            if (PhotonNetwork.IsMasterClient && !isTrackSelected)
-                tracksPanel.SetActive(true);
-            else
-                WaitingPanel.SetActive(true);
-
         }
-        dataControl.myCharacter = characters[(int)PhotonNetwork.LocalPlayer.CustomProperties["Avatar"]].name;
-        pv.RPC("CharacterJoined", RpcTarget.AllBuffered, null);
-
     }
 
     public override void OnJoinedRoom()
@@ -102,8 +93,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
         roomNameDisplay.text = PhotonNetwork.CurrentRoom.Name;
-
-        characterSelected++;
+        EnterBtn.SetActive(true);
         ClearPlayerListings();
         ListPlayer();
         Debug.Log("Joined");
@@ -111,7 +101,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        characterSelected++;
+        EnterBtn.SetActive(true);
         ClearPlayerListings();
         ListPlayer();
         Debug.Log("Entered");
@@ -120,9 +110,41 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        if (isEntered)
+        {
+            if (PhotonNetwork.IsMasterClient && !isTrackSelected)
+                tracksPanel.SetActive(true);
+            else
+                WaitingPanel.SetActive(true);
+        }
+        else
+        {
+            EnterBtn.SetActive(true);
+        }
+
         characterSelected--;
+
         ClearPlayerListings();
         ListPlayer();
+    }
+
+    public void EnterRoom()
+    {
+        isEntered = true;
+        if (PhotonNetwork.IsMasterClient && !isTrackSelected)
+            tracksPanel.SetActive(true);
+        else
+            WaitingPanel.SetActive(true);
+
+        dataControl.myCharacter = characters[(int)PhotonNetwork.LocalPlayer.CustomProperties["Avatar"]].name;
+        EnterBtn.SetActive(false);
+        pv.RPC("CharacterJoined", RpcTarget.AllBuffered, null);
+    }
+
+    [PunRPC]
+    public void CharacterJoined()
+    {
+        characterSelected++;
     }
 
     public void StartGame()
@@ -171,16 +193,6 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         {
             StartCoroutine(WaitForOthers());
         }
-    }
-
-    [PunRPC]
-    public void CharacterJoined()
-    {
-        if (!PlayerNames.Contains(PhotonNetwork.LocalPlayer.NickName))
-        {
-            PlayerNames.Add(PhotonNetwork.LocalPlayer.NickName);
-        }
-
     }
 
     IEnumerator WaitForOthers()

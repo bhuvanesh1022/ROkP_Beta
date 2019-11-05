@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
             for (int i = 0; i < skin.Length; i++)
             {
-                skin[i].sortingOrder++;
+                skin[i].sortingOrder = skin[i].sortingOrder + 10;
             }
         }
         else
