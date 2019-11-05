@@ -4,8 +4,10 @@ using System.IO;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 
-public class GameController : MonoBehaviourPun
+public class GameController : MonoBehaviourPun, IPunObservable
 {
     public static GameController gameController;
 
@@ -26,6 +28,11 @@ public class GameController : MonoBehaviourPun
     public List<GameObject> SpeedPoweredRunners = new List<GameObject>();
     public List<GameObject> ThrowPoweredRunners = new List<GameObject>();
     public List<GameObject> VictimRunners = new List<GameObject>();
+
+    public GameObject HitTextPanel;
+    public TextMeshProUGUI Thrower;
+    public TextMeshProUGUI Victim;
+    public string ThrowerName;
 
     public bool startRace;
 
@@ -141,19 +148,43 @@ public class GameController : MonoBehaviourPun
         PowerUpBtns[1].SetActive(false);
 
         GameObject throwingObj = PhotonNetwork.Instantiate("Thrown", LocalPlayer.GetComponent<PlayerController>().SpawnPoint.position, Quaternion.identity);
-        throwingObj.GetComponent<PowerController>().Thrower = ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].GetComponent<PlayerController>().UserName;
+        throwingObj.GetComponent<PowerController>().Thrower = ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex];
         //ThrowPoweredRunners.Remove(ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].gameObject);
     }
 
     public void ShowHitText(string thrower, string victim)
     {
         pv.RPC("OnHit", RpcTarget.AllBuffered, thrower, victim);
+
     }
 
     [PunRPC]
     public void OnHit(string thrower, string victim)
     {
-        Debug.Log(thrower + " hit " + victim);
+        ThrowerName = thrower;
+        Thrower.text = ThrowerName;
+        Victim.text = victim;
+        StartCoroutine(EnablingHitText());
     }
 
+    IEnumerator EnablingHitText()
+    {
+        HitTextPanel.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        HitTextPanel.SetActive(false);
+
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(ThrowerName);
+        }
+
+        if (stream.IsReading)
+        {
+            ThrowerName = (string)stream.ReceiveNext();
+        }
+    }
 }

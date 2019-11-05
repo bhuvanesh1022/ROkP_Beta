@@ -8,7 +8,7 @@ public class PowerController : MonoBehaviourPun, IPunObservable
     public enum PowerupTypes { SpeedBoost, Throwable, Thrown };
     public PowerupTypes powerup;
 
-    public string Thrower;
+    public GameObject Thrower;
 
     private GameObject CollidedWith;
     private SpriteRenderer _sprite;
@@ -27,6 +27,7 @@ public class PowerController : MonoBehaviourPun, IPunObservable
         if (powerup == PowerupTypes.Thrown)
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(50, 0);
+            Destroy(gameObject, 3.0f);
         }
     }
 
@@ -75,14 +76,8 @@ public class PowerController : MonoBehaviourPun, IPunObservable
                 case PowerupTypes.Thrown:
 
                     CollidedWith.GetComponent<PlayerController>().GotAttack();
-
-                    gameController.ShowHitText(Thrower, CollidedWith.GetComponent<PlayerController>().UserName);
-                    //pv.RPC("HitText", RpcTarget.AllBuffered, Thrower, CollidedWith.GetComponent<PlayerController>().UserName);
-
-                    if (!CollidedWith.GetComponent<PlayerController>().pv.IsMine)
-                    {
-
-                    }
+                    gameController.ShowHitText(Thrower.GetComponent<PlayerController>().UserName, CollidedWith.GetComponent<PlayerController>().UserName);
+                    Destroy(gameObject, .1f);
                     break;
             }
         }
@@ -113,7 +108,7 @@ public class PowerController : MonoBehaviourPun, IPunObservable
         }
         if (stream.IsReading)
         {
-            Thrower = (string)stream.ReceiveNext();
+            Thrower = (GameObject)stream.ReceiveNext();
         }
 
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MatchmakingRoomController : MonoBehaviourPunCallbacks
+public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public static MatchmakingRoomController roomController;
 
@@ -28,6 +28,8 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
     [SerializeField] private List<string> PlayerNames = new List<string>();
 
     private GameObject templisting;
+    private bool isTrackSelected;
+
     public int characterSelected;
     public PhotonView pv;
 
@@ -80,22 +82,11 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
             int CharacterID = (int)player.CustomProperties["Avatar"];
             tempImg.sprite = avatars[CharacterID];
 
-            //CharacterSelection(CharacterID);
-
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.IsMasterClient && !isTrackSelected)
                 tracksPanel.SetActive(true);
             else
                 WaitingPanel.SetActive(true);
 
-            //if (!PlayerNames.Contains(player.NickName))
-            //{
-            //    PlayerNames.Add(player.NickName);
-            //    //characterSelected++;
-            //}
-
-            //Debug.Log(PlayerNames.Count);
-
-            //CharacterSelection((int)player.CustomProperties["Avatar"]);
         }
         dataControl.myCharacter = characters[(int)PhotonNetwork.LocalPlayer.CustomProperties["Avatar"]].name;
         pv.RPC("CharacterJoined", RpcTarget.AllBuffered, null);
@@ -174,23 +165,12 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
         //dataControl.currentTrack = tracks[ID].name;
         dataControl.trackID = ID;
         tracksPanel.SetActive(false);
+        isTrackSelected = true;
 
         if (PhotonNetwork.IsMasterClient)
         {
             StartCoroutine(WaitForOthers());
         }
-    }
-
-    public void CharacterSelection(int CharacterID)
-    {
-        dataControl.myCharacter = characters[CharacterID].name;
-
-        if (PhotonNetwork.IsMasterClient)
-            tracksPanel.SetActive(true);
-        else
-            WaitingPanel.SetActive(true);
-
-        pv.RPC("CharacterJoined", RpcTarget.AllBuffered, null);
     }
 
     [PunRPC]
@@ -200,6 +180,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
         {
             PlayerNames.Add(PhotonNetwork.LocalPlayer.NickName);
         }
+
     }
 
     IEnumerator WaitForOthers()
@@ -214,4 +195,15 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks
         startButton.SetActive(true);
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(characterSelected);
+        }
+        if (stream.IsReading)
+        {
+            characterSelected = (int)stream.ReceiveNext();
+        }
+    }
 }

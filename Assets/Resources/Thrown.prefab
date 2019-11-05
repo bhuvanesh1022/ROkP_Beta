@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerup: 2
-  Thrower: 
+  Thrower: {fileID: 0}
 --- !u!1 &5192551540723591029
 GameObject:
   m_ObjectHideFlags: 0
