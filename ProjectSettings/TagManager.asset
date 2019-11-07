@@ -9,6 +9,8 @@ TagManager:
   - SpeedBoost
   - Throwable
   - Thrown
+  - AudioManager
+  - RoomController
   layers:
   - Default
   - TransparentFX

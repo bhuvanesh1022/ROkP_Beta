@@ -194,9 +194,9 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
         if (m_Grounded)
         {
+            m_playerController.NoOfJumps++;
             m_Rigidbody2D.velocity = Vector2.zero;
             m_Rigidbody2D.AddForce(new Vector2(m_Rigidbody2D.velocity.x, m_dataManager.m_JumpForce), ForceMode2D.Impulse);
-
         }
         else
         {

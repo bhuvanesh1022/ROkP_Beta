@@ -47,5 +47,7 @@ MonoBehaviour:
   - GotAttack
   - HitText
   - OnHit
+  - PlayAudioGlobally
+  - ShowScoreCard
   DisableAutoOpenWizard: 1
   ShowSettings: 1

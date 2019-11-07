@@ -1,26 +1,30 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using System.IO;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.UI;
 using TMPro;
 
 public class GameController : MonoBehaviourPun, IPunObservable
 {
     public static GameController gameController;
 
+    private AudioControl AC;
+    private AudioSource AS;
     private DataController DC;
     private DataManager DM;
     private Camera myCam;
     private GameObject Runner;
+    private MatchmakingRoomController roomController;
 
     public float trackLength;
     public GameObject[] Tracks;
     public List<Transform> finishPoints = new List<Transform>();
     public Transform finishLine;
     public GameObject LocalPlayer;
+    public List<Transform> spawnPoints = new List<Transform>();
     public GameObject startBtn;
     public GameObject waitingSign;
     public GameObject[] countdown;
@@ -28,7 +32,10 @@ public class GameController : MonoBehaviourPun, IPunObservable
     public List<GameObject> SpeedPoweredRunners = new List<GameObject>();
     public List<GameObject> ThrowPoweredRunners = new List<GameObject>();
     public List<GameObject> VictimRunners = new List<GameObject>();
-
+    public GameObject ScoreBoard;
+    public List<GameObject> ScoreCards = new List<GameObject>();
+    public List<Image> RunnerInScorecard = new List<Image>();
+    public List<TextMeshProUGUI> maxUsers = new List<TextMeshProUGUI>();
     public GameObject HitTextPanel;
     public TextMeshProUGUI Thrower;
     public TextMeshProUGUI Victim;
@@ -45,8 +52,11 @@ public class GameController : MonoBehaviourPun, IPunObservable
             gameController = this;
         }
 
+        AS = GetComponent<AudioSource>();
+        AC = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>();
         DC = GameObject.FindWithTag("DataController").GetComponent<DataController>();
         DM = GameObject.FindWithTag("Manager").GetComponent<DataManager>();
+        roomController = GameObject.FindWithTag("RoomController").GetComponent<MatchmakingRoomController>();
         myCam = Camera.main;
         startRace = false;
     }
@@ -66,9 +76,20 @@ public class GameController : MonoBehaviourPun, IPunObservable
         }
     }
 
+    public void Update()
+    {
+        for (int i = 0; i < DM.Runners.Count; i++)
+        {
+            if (!DM.Runners[i].isFinished && DM.Runners[i].startTimer)
+                DM.Runners[i].elapsedTime += Time.deltaTime;
+        }
+
+    }
+
     private void CreatePlayer()
     {
         Runner = PhotonNetwork.Instantiate(Path.Combine(DC.myCharacter), Vector3.zero, Quaternion.identity).gameObject;
+        Runner.transform.position = gameController.spawnPoints[roomController.enteredAt - 1].position;
         //Runner.GetComponent<PlayerController>().UserName = DC.myName;
         myCam.GetComponent<CameraFollow>().target = Runner.transform;
     }
@@ -97,6 +118,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
     {
         startBtn.SetActive(false);
         waitingSign.SetActive(false);
+        AC.GetComponent<AudioSource>().Stop();
 
         for (int i = 0; i < countdown.Length; i++)
         {
@@ -106,10 +128,14 @@ public class GameController : MonoBehaviourPun, IPunObservable
         }
 
         startRace = true;
+        int a = Random.Range(0, AC.BG_Game.Length);
+        AC.GetComponent<AudioSource>().clip = AC.BG_Game[a];
+        AC.GetComponent<AudioSource>().Play();
 
         for (int i = 0; i < DM.Runners.Count; i++)
         {
             DM.Runners[i].canRace = true;
+            DM.Runners[i].startTimer = true;
         }
     }
 
@@ -123,15 +149,81 @@ public class GameController : MonoBehaviourPun, IPunObservable
         Application.Quit();
     }
 
+    IEnumerator CameraRushIn()
+    {
+        myCam.GetComponent<CameraFollow>().offset.y = 2;
+        while (myCam.orthographicSize > 5)
+        {
+            myCam.orthographicSize -= 0.5f;
+            yield return null;
+        }
+        myCam.orthographicSize = 7f;
+
+        yield return new WaitForSeconds(1.0f);
+
+        while (myCam.orthographicSize < 10)
+        {
+            myCam.orthographicSize += 0.1f;
+            yield return null;
+        }
+        myCam.orthographicSize = 10f;
+        myCam.GetComponent<CameraFollow>().offset.y = 6;
+    }
+
+    public void shakeCamera(float dur, float mag, float vect)
+    {
+        StartCoroutine(ShakyCamera(dur, mag, vect));
+    }
+
+    IEnumerator ShakyCamera(float dur, float mag, float  vect)
+    {
+        Vector3 iniPos = myCam.transform.localPosition;
+        float elapse = 0.0f;
+        while (elapse < dur)
+        {
+            float x = Random.Range(-vect, vect) * mag;
+            float y = Random.Range(-vect, vect) * mag;
+            myCam.transform.localPosition = new Vector3(iniPos.x + x, iniPos.y + y, iniPos.z);
+            elapse += Time.deltaTime;
+            yield return null;
+        }
+        myCam.transform.localPosition = iniPos;
+    }
+
+    IEnumerator CameraFlyOff()
+    {
+        myCam.GetComponent<CameraFollow>().offset.x = 15;
+        while (myCam.orthographicSize < 13)
+        {
+            myCam.orthographicSize += 0.5f;
+            yield return null;
+        }
+        myCam.orthographicSize = 13f;
+
+        yield return new WaitForSeconds(.5f);
+
+        while (myCam.orthographicSize > 10)
+        {
+            myCam.orthographicSize -= 0.1f;
+            yield return null;
+        }
+        myCam.orthographicSize = 10f;
+        myCam.GetComponent<CameraFollow>().offset.y = 6.5f;
+    }
+
     public void SpeedUp()
     {
         PowerUpBtns[0].SetActive(false);
+        pv.RPC("PlayAudioGlobally", RpcTarget.AllBuffered, null);
         StartCoroutine(BoostSpeed());
+        StartCoroutine(CameraRushIn());
+        StartCoroutine(ShakyCamera(0.15f, 0.2f, 0.5f));
     }
 
     public IEnumerator BoostSpeed()
     {
         float temp = SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
+        SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
         DM.m_TargetSpeed += 30;
         DM.m_MaxRunForce += 1000;
 
@@ -143,10 +235,25 @@ public class GameController : MonoBehaviourPun, IPunObservable
         //SpeedPoweredRunners.Remove(SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].gameObject);
     }
 
+    [PunRPC]
+    public void PlayAudioGlobally()
+    {
+        AS.clip = AC.SpeedBoost;
+        AS.Play();
+    }
+
     public void ThrowUp()
     {
         PowerUpBtns[1].SetActive(false);
+        StartCoroutine(CameraFlyOff());
 
+        if (pv.IsMine)
+        {
+            AS.clip = AC.Thrower;
+            AS.Play();
+        }
+
+        ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].GetComponent<PlayerController>().NoOfThrows++;
         GameObject throwingObj = PhotonNetwork.Instantiate("Thrown", LocalPlayer.GetComponent<PlayerController>().SpawnPoint.position, Quaternion.identity);
         throwingObj.GetComponent<PowerController>().Thrower = ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex];
         //ThrowPoweredRunners.Remove(ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].gameObject);
@@ -155,7 +262,6 @@ public class GameController : MonoBehaviourPun, IPunObservable
     public void ShowHitText(string thrower, string victim)
     {
         pv.RPC("OnHit", RpcTarget.AllBuffered, thrower, victim);
-
     }
 
     [PunRPC]
@@ -172,7 +278,6 @@ public class GameController : MonoBehaviourPun, IPunObservable
         HitTextPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
         HitTextPanel.SetActive(false);
-
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
