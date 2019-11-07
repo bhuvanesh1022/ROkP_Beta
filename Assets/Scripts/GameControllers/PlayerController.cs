@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using Anima2D;
+using TMPro;
 
 public class PlayerController : MonoBehaviourPun, IPunObservable
 {
@@ -14,14 +15,19 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private PlayerMovement playerMovement;
     private int totalRunners;
 
-
     public float FinishDistance;
     public string UserName;
     public bool isWon;
     public bool isFinished;
     public bool canRace;
+    public bool startTimer;
+    public float elapsedTime;
     public int speedingPlayerIndex;
     public int throwingPlayerIndex;
+    public int NoOfJumps;
+    public int NoOfThrows;
+    public int NoOfHits;
+    public int NoOfSpeedBoost;
 
     public enum RunnerState { run, speedRun, stun};
     public RunnerState currentState;
@@ -43,7 +49,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         {
             gameController.LocalPlayer = gameObject;
         }
-
     }
 
     private void Start()
@@ -181,7 +186,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 {
                     gameController.VictimRunners.Add(gameObject);
                 }
-                    break;
+
+                TriggeredBy.GetComponent<Collider2D>().enabled = false;
+                Destroy(TriggeredBy, .5f);
+                break;
         }
 
     }
@@ -209,15 +217,84 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 }
             }
         }
+
+        if (pv.IsMine)
+        {
+            pv.RPC("ShowScoreCard", RpcTarget.AllBuffered, null);
+        }
+    }
+
+    [PunRPC]
+    public void ShowScoreCard()
+    {
+        if (gameController.LocalPlayer.GetComponent<PlayerController>().isFinished)
+        {
+            StartCoroutine(EnablingScoreBoard());
+
+            int maxJump = 0, maxThrow = 0, maxHit = 0, maxSpeedBoost = 0;
+            string maxJumpUser = "", maxThrowUser = "", maxHitUser = "", maxSpeedBoostUser = "";
+
+            for (int i = 0; i < dataManager.Runners.Count; i++)
+            {
+                if (maxJump < dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps)
+                {
+                    maxJump = dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps;
+                    maxJumpUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+                }
+
+                if (maxThrow < dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows)
+                {
+                    maxThrow = dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows;
+                    maxThrowUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+                }
+
+                if (maxHit < dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits)
+                {
+                    maxHit = dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits;
+                    maxHitUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+                }
+
+                if (maxSpeedBoost < dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost)
+                {
+                    maxSpeedBoost = dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost;
+                    maxSpeedBoostUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+                }
+            }
+
+            gameController.maxUsers[0].text = maxJumpUser;
+            gameController.maxUsers[1].text = maxThrowUser;
+            gameController.maxUsers[2].text = maxHitUser;
+            gameController.maxUsers[3].text = maxSpeedBoostUser;
+
+        }
+    }
+
+    IEnumerator EnablingScoreBoard()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameController.ScoreBoard.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
+
+        for (int i = 0; i < dataManager.FinishedRunners.Count; i++)
+        {
+            gameController.ScoreCards[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dataManager.FinishedRunners[i].UserName;
+            float timeElapsed = dataManager.FinishedRunners[i].elapsedTime;
+            gameController.ScoreCards[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = timeElapsed.ToString("00.00");
+            gameController.RunnerInScorecard[i].sprite = dataManager.FinishedRunners[i].GetComponent<PlayerController>().ScoreBoardSprite;
+            gameController.RunnerInScorecard[i].color = Color.white;
+            gameController.RunnerInScorecard[i].transform.parent.gameObject.SetActive(true);
+        }
     }
 
     public void GotAttack()
     {
         gameController.VictimRunners.Remove(gameObject);
+        gameController.shakeCamera(0.15f, 0.2f, 2.0f);
 
         if (pv.IsMine)
         {
             StartCoroutine(Attacked());
+            NoOfHits++;
         }
     }
 
@@ -245,11 +322,21 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         {
             stream.SendNext(isFinished);
             stream.SendNext(UserName);
+            stream.SendNext(NoOfJumps);
+            stream.SendNext(NoOfThrows);
+            stream.SendNext(NoOfHits);
+            stream.SendNext(NoOfSpeedBoost);
+            stream.SendNext(elapsedTime);
         }
         else if (stream.IsReading)
         {
             isFinished = (bool) stream.ReceiveNext();
             UserName = (string) stream.ReceiveNext();
+            NoOfJumps = (int)stream.ReceiveNext();
+            NoOfThrows = (int)stream.ReceiveNext();
+            NoOfHits = (int)stream.ReceiveNext();
+            NoOfSpeedBoost = (int)stream.ReceiveNext();
+            elapsedTime = (float)stream.ReceiveNext();
         }
     }
 

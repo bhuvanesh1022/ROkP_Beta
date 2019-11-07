@@ -196,8 +196,14 @@ MonoBehaviour:
   isWon: 0
   isFinished: 0
   canRace: 0
+  startTimer: 0
+  elapsedTime: 0
   speedingPlayerIndex: 0
   throwingPlayerIndex: 0
+  NoOfJumps: 0
+  NoOfThrows: 0
+  NoOfHits: 0
+  NoOfSpeedBoost: 0
   currentState: 0
   SpawnPoint: {fileID: 8257813967024359156}
   TriggeredBy: {fileID: 0}
@@ -262,6 +268,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: -718389887672832014}
+  - {fileID: 7745700153360759138}
   - {fileID: -8760026962642206041}
   viewIdField: 0
   InstantiationId: 0

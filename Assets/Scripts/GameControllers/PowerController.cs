@@ -75,9 +75,14 @@ public class PowerController : MonoBehaviourPun, IPunObservable
 
                 case PowerupTypes.Thrown:
 
+                    if (pv.IsMine)
+                    {
+                        gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
+                        gameController.GetComponent<AudioSource>().Play();
+                    }
+
                     CollidedWith.GetComponent<PlayerController>().GotAttack();
                     gameController.ShowHitText(Thrower.GetComponent<PlayerController>().UserName, CollidedWith.GetComponent<PlayerController>().UserName);
-                    Destroy(gameObject, .1f);
                     break;
             }
         }

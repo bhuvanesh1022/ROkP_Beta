@@ -31,6 +31,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
     private bool isEntered;
 
     public int characterSelected;
+    public int enteredAt;
     public PhotonView pv;
 
     private void Awake()
@@ -89,7 +90,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         Vector4 col = mainPanel.GetComponent<Image>().color;
         col.w = 0.0f;
         mainPanel.GetComponent<Image>().color = col;
-
+        enteredAt = PhotonNetwork.PlayerList.Length;
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
         roomNameDisplay.text = PhotonNetwork.CurrentRoom.Name;
