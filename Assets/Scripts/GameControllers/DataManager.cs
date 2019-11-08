@@ -22,4 +22,7 @@ public class DataManager : MonoBehaviourPun
     public float m_WallJumpForce;
     public float m_WallJumpAmplitude;
     public float m_WallSlideGravity;
+
+    public Image Positioned;
+    public Sprite[] Positions;
 }

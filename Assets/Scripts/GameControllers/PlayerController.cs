@@ -28,12 +28,14 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     public int NoOfThrows;
     public int NoOfHits;
     public int NoOfSpeedBoost;
+    public Vector3 hitPos;
 
-    public enum RunnerState { run, speedRun, stun};
+    public enum RunnerState { run, speedRun, stun };
     public RunnerState currentState;
     public Transform SpawnPoint;
     public GameObject TriggeredBy;
     public Sprite[] posSprites;
+    public int currentPosition;
     public Sprite ScoreBoardSprite;
     public SpriteMeshInstance[] skin;
     public PhotonView pv;
@@ -98,9 +100,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             throwingPlayerIndex = -1;
         }
 
-        //if (!canRace)
-            //canRace = gameController.startRace;
-
         if (!isFinished)
         {
             pv.RPC("SyncPosition", RpcTarget.AllBuffered, null);
@@ -144,20 +143,32 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             }
         }
 
-        for (int i = 0; i < totalRunners; i++)
-        {
-
-        }
-
         dataManager.RunnersPositioned = dataManager.Runners;
 
         dataManager.RunnersPositioned.Sort
             (delegate (PlayerController a, PlayerController b)
                 {
-                    return 
-                        (a.FinishDistance).CompareTo (b.FinishDistance);
+                    return
+                        (a.FinishDistance).CompareTo(b.FinishDistance);
                 }
             );
+
+        currentPosition = dataManager.RunnersPositioned.IndexOf(this);
+
+        Image img = dataManager.Positioned.GetComponent<Image>();
+
+        if (pv.IsMine)
+        {
+            if (!isFinished)
+            {
+                img.sprite = dataManager.Positions[currentPosition];
+                img.color = Color.white;
+            }
+            else
+            {
+                img.transform.parent.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -171,7 +182,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         TriggeredBy = collision.gameObject;
-
         switch (TriggeredBy.tag)
         {
             case "Finish":
@@ -181,17 +191,55 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 break;
 
             case "Thrown":
-
-                if (!gameController.VictimRunners.Contains(gameObject))
-                {
-                    gameController.VictimRunners.Add(gameObject);
-                }
-
-                TriggeredBy.GetComponent<Collider2D>().enabled = false;
-                Destroy(TriggeredBy, .5f);
+                Debug.Log("hit");
+                hitPos = transform.localPosition;
+                GotAttack();
                 break;
         }
+    }
 
+    public void  SpeedBoost()
+    {
+        gameController.PowerUpBtns[0].SetActive(false);
+        gameController.StartCoroutine(BoostSpeed());
+        gameController.StartCoroutine(gameController.CameraRushIn());
+        gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
+    }
+
+    IEnumerator BoostSpeed()
+    {
+        float temp = gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
+        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", true);
+        currentState = RunnerState.speedRun;
+        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
+        dataManager.m_TargetSpeed += 30;
+        dataManager.m_MaxRunForce += 1000;
+
+        yield return new WaitForSeconds(1.0f);
+
+        dataManager.m_TargetSpeed -= 30;
+        dataManager.m_MaxRunForce -= 1000;
+        currentState = RunnerState.run;
+        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
+        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
+    }
+
+    public void GotAttack()
+    {
+        NoOfHits++;
+        canRace = false;
+        playerMovement.m_Animator.SetBool("stun", true);
+        currentState = RunnerState.stun;
+        StartCoroutine(StartToRun());
+    }
+
+    IEnumerator StartToRun()
+    {
+        yield return new WaitForSeconds(2f);
+        canRace = true;
+        currentState = RunnerState.run;
+        GetComponent<PlayerMovement>().m_Animator.SetBool("stun", false);
+        gameController.VictimRunners.Remove(gameObject);
     }
 
     public void FinishedRace()
@@ -236,25 +284,25 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
             for (int i = 0; i < dataManager.Runners.Count; i++)
             {
-                if (maxJump < dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps)
+                if (maxJump <= dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps)
                 {
                     maxJump = dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps;
                     maxJumpUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
                 }
 
-                if (maxThrow < dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows)
+                if (maxThrow <- dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows)
                 {
                     maxThrow = dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows;
                     maxThrowUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
                 }
 
-                if (maxHit < dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits)
+                if (maxHit <= dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits)
                 {
                     maxHit = dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits;
                     maxHitUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
                 }
 
-                if (maxSpeedBoost < dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost)
+                if (maxSpeedBoost <= dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost)
                 {
                     maxSpeedBoost = dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost;
                     maxSpeedBoostUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
@@ -286,36 +334,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void GotAttack()
-    {
-        gameController.VictimRunners.Remove(gameObject);
-        gameController.shakeCamera(0.15f, 0.2f, 2.0f);
-
-        if (pv.IsMine)
-        {
-            StartCoroutine(Attacked());
-            NoOfHits++;
-        }
-    }
-
-    IEnumerator Attacked()
-    {
-        canRace = false;
-        StartCoroutine(StunRunner(transform.position));
-
-        yield return new WaitForSeconds(2f);
-        canRace = true;
-    }
-
-    IEnumerator StunRunner(Vector3 pos)
-    {
-        while (!canRace)
-        {
-            transform.position = pos;
-            yield return null;
-        }
-    }
-
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -327,6 +345,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             stream.SendNext(NoOfHits);
             stream.SendNext(NoOfSpeedBoost);
             stream.SendNext(elapsedTime);
+            stream.SendNext(canRace);
         }
         else if (stream.IsReading)
         {
@@ -337,6 +356,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             NoOfHits = (int)stream.ReceiveNext();
             NoOfSpeedBoost = (int)stream.ReceiveNext();
             elapsedTime = (float)stream.ReceiveNext();
+            canRace = (bool)stream.ReceiveNext();
         }
     }
 

@@ -295,6 +295,7 @@ MonoBehaviour:
   NoOfThrows: 0
   NoOfHits: 0
   NoOfSpeedBoost: 0
+  hitPos: {x: 0, y: 0, z: 0}
   currentState: 0
   SpawnPoint: {fileID: 207481471824723326}
   TriggeredBy: {fileID: 0}
@@ -302,6 +303,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 21a13597197ad4ced903dd002865f80f, type: 3}
   - {fileID: 21300000, guid: 7a1ef63f5a7214f5d9522239d9478bd5, type: 3}
   - {fileID: 21300000, guid: 600212825d5bf4d798cea3e421c6e074, type: 3}
+  currentPosition: 0
   ScoreBoardSprite: {fileID: 21300000, guid: 7c3314512e3394c22b147b80a8d8d8f5, type: 3}
   skin:
   - {fileID: 8743917093854275240}

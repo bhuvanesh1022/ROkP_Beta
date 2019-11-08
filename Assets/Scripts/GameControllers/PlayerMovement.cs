@@ -113,30 +113,13 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         if (!isWallJumping && !m_WallInFront && facingFront)
             Run();
 
-        //if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
-        //Jump();
-
-        //#if UNITY_EDITOR
-
-        //        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() /**/ )
-        //            Jump();
-        //#endif  
-
-        #if UNITY_ANDROID
-            
-           if (Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject())
-               {
-                    Touch touch = Input.GetTouch(0);
-                    if(touch.phase == TouchPhase.Began)
-                    Jump();
-                }
-        #else
-
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() /**/ )
-                    Jump();
-
-        #endif
-
+        if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f)
+            {
+                Jump();
+            }
+        }
 
         if (m_Rigidbody2D.velocity.y <= -0.5f && m_WallInFront)
             isSliding = true;
@@ -154,8 +137,11 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         if (m_Rigidbody2D.velocity.y <= m_dataManager.m_TerminalSpeed)
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_dataManager.m_TerminalSpeed);
 
+        if (m_playerController.currentState == PlayerController.RunnerState.run)
+        {
+            m_Animator.SetBool("run", rn);
+        }
 
-        m_Animator.SetBool("run", rn);
         m_Animator.SetBool("wallslide", isSliding);
         m_Animator.SetBool("idle", idl);
     }
@@ -186,6 +172,8 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
         // And then smoothing it out and applying it to the character
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+
+        m_playerController.currentState = PlayerController.RunnerState.run;
     }
 
     void Jump()
@@ -218,18 +206,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             }
         }
     }
-
-    //IEnumerator WallJump()
-    //{
-    //    yield return new WaitForSeconds(1f);
-    //    /*
-    //    while (!m_Grounded)
-    //    {
-    //        yield return null;
-    //    }
-    //    */
-    //    isWallJumping &= !m_Grounded;
-    //}
 
     private void OnDrawGizmos()
     {
