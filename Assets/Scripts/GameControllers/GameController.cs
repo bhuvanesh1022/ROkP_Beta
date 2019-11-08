@@ -149,7 +149,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
         Application.Quit();
     }
 
-    IEnumerator CameraRushIn()
+    public IEnumerator CameraRushIn()
     {
         myCam.GetComponent<CameraFollow>().offset.y = 2;
         while (myCam.orthographicSize > 5)
@@ -175,7 +175,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
         StartCoroutine(ShakyCamera(dur, mag, vect));
     }
 
-    IEnumerator ShakyCamera(float dur, float mag, float  vect)
+    public IEnumerator ShakyCamera(float dur, float mag, float  vect)
     {
         Vector3 iniPos = myCam.transform.localPosition;
         float elapse = 0.0f;
@@ -190,7 +190,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
         myCam.transform.localPosition = iniPos;
     }
 
-    IEnumerator CameraFlyOff()
+    public IEnumerator CameraFlyOff()
     {
         myCam.GetComponent<CameraFollow>().offset.x = 15;
         while (myCam.orthographicSize < 13)
@@ -213,27 +213,33 @@ public class GameController : MonoBehaviourPun, IPunObservable
 
     public void SpeedUp()
     {
-        PowerUpBtns[0].SetActive(false);
+        LocalPlayer.GetComponent<PlayerController>().SpeedBoost();
         pv.RPC("PlayAudioGlobally", RpcTarget.AllBuffered, null);
-        StartCoroutine(BoostSpeed());
-        StartCoroutine(CameraRushIn());
-        StartCoroutine(ShakyCamera(0.15f, 0.2f, 0.5f));
+
+        //PowerUpBtns[0].SetActive(false);
+        //StartCoroutine(BoostSpeed());
+        //StartCoroutine(CameraRushIn());
+        //StartCoroutine(ShakyCamera(0.15f, 0.2f, 0.5f));
     }
 
-    public IEnumerator BoostSpeed()
-    {
-        float temp = SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
-        SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
-        DM.m_TargetSpeed += 30;
-        DM.m_MaxRunForce += 1000;
+    //public IEnumerator BoostSpeed()
+    //{
+    //    float temp = SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
+    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", true);
+    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().currentState = PlayerController.RunnerState.speedRun;
+    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
+    //    DM.m_TargetSpeed += 30;
+    //    DM.m_MaxRunForce += 1000;
 
-        yield return new WaitForSeconds(1.0f);
+    //    yield return new WaitForSeconds(1.0f);
 
-        DM.m_TargetSpeed -= 30;
-        DM.m_MaxRunForce -= 1000;
-        SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
-        //SpeedPoweredRunners.Remove(SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].gameObject);
-    }
+    //    DM.m_TargetSpeed -= 30;
+    //    DM.m_MaxRunForce -= 1000;
+    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
+    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().currentState = PlayerController.RunnerState.speedRun;
+    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
+    ////    //SpeedPoweredRunners.Remove(SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].gameObject);
+    //}
 
     [PunRPC]
     public void PlayAudioGlobally()
@@ -259,9 +265,11 @@ public class GameController : MonoBehaviourPun, IPunObservable
         //ThrowPoweredRunners.Remove(ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].gameObject);
     }
 
-    public void ShowHitText(string thrower, string victim)
+    public void GotHit(GameObject thrower, GameObject victim)
     {
-        pv.RPC("OnHit", RpcTarget.AllBuffered, thrower, victim);
+        string t = thrower.GetComponent<PlayerController>().UserName;
+        string v = victim.GetComponent<PlayerController>().UserName;
+        pv.RPC("OnHit", RpcTarget.AllBuffered, t, v);
     }
 
     [PunRPC]
@@ -270,12 +278,14 @@ public class GameController : MonoBehaviourPun, IPunObservable
         ThrowerName = thrower;
         Thrower.text = ThrowerName;
         Victim.text = victim;
+
         StartCoroutine(EnablingHitText());
     }
 
     IEnumerator EnablingHitText()
     {
         HitTextPanel.SetActive(true);
+
         yield return new WaitForSeconds(2f);
         HitTextPanel.SetActive(false);
     }

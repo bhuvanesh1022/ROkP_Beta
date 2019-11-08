@@ -63,6 +63,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         }
     }
 
+    [PunRPC]
     void ClearPlayerListings()
     {
         for (int i = playersContainer.childCount - 1; i >= 0; i--)
@@ -71,6 +72,7 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         }
     }
 
+    [PunRPC]
     void ListPlayer()
     {
         foreach (Player player in PhotonNetwork.PlayerList)
@@ -95,16 +97,15 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         lobbyPanel.SetActive(false);
         roomNameDisplay.text = PhotonNetwork.CurrentRoom.Name;
         EnterBtn.SetActive(true);
-        ClearPlayerListings();
-        ListPlayer();
         Debug.Log("Joined");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        EnterBtn.SetActive(true);
-        ClearPlayerListings();
-        ListPlayer();
+        if (!isEntered)
+        {
+            EnterBtn.SetActive(true);
+        }
         Debug.Log("Entered");
 
     }
@@ -124,7 +125,6 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         }
 
         characterSelected--;
-
         ClearPlayerListings();
         ListPlayer();
     }
@@ -139,6 +139,10 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
 
         dataControl.myCharacter = characters[(int)PhotonNetwork.LocalPlayer.CustomProperties["Avatar"]].name;
         EnterBtn.SetActive(false);
+        //ClearPlayerListings();
+        //ListPlayer();
+        pv.RPC("ClearPlayerListings", RpcTarget.All, null);
+        pv.RPC("ListPlayer", RpcTarget.All, null);
         pv.RPC("CharacterJoined", RpcTarget.AllBuffered, null);
     }
 

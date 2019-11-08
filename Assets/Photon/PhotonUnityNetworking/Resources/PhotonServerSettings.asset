@@ -49,5 +49,7 @@ MonoBehaviour:
   - OnHit
   - PlayAudioGlobally
   - ShowScoreCard
+  - ListPlayer
+  - ClearPlayerListings
   DisableAutoOpenWizard: 1
   ShowSettings: 1

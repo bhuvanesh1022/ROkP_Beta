@@ -75,19 +75,25 @@ public class PowerController : MonoBehaviourPun, IPunObservable
 
                 case PowerupTypes.Thrown:
 
-                    if (pv.IsMine)
+                    if (!gameController.VictimRunners.Contains(CollidedWith))
                     {
-                        gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
-                        gameController.GetComponent<AudioSource>().Play();
+                        gameController.VictimRunners.Add(CollidedWith);
                     }
 
-                    CollidedWith.GetComponent<PlayerController>().GotAttack();
-                    gameController.ShowHitText(Thrower.GetComponent<PlayerController>().UserName, CollidedWith.GetComponent<PlayerController>().UserName);
+                    gameController.shakeCamera(0.15f, 0.2f, 2.0f);
+                    gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
+                    gameController.GetComponent<AudioSource>().Play();
+
+                    if (Thrower != null)
+                    {
+                        gameController.GotHit(Thrower, CollidedWith);
+                    }
+                    Destroy(gameObject, 0.25f);
                     break;
             }
         }
     }
-   
+
     [PunRPC]
     public void DisablePickup()
     {
