@@ -37,6 +37,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
     public List<Image> RunnerInScorecard = new List<Image>();
     public List<TextMeshProUGUI> maxUsers = new List<TextMeshProUGUI>();
     public GameObject HitTextPanel;
+    public GameObject speedLine;
     public TextMeshProUGUI Thrower;
     public TextMeshProUGUI Victim;
     public string ThrowerName;
@@ -261,15 +262,14 @@ public class GameController : MonoBehaviourPun, IPunObservable
 
         ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].GetComponent<PlayerController>().NoOfThrows++;
         GameObject throwingObj = PhotonNetwork.Instantiate("Thrown", LocalPlayer.GetComponent<PlayerController>().SpawnPoint.position, Quaternion.identity);
-        throwingObj.GetComponent<PowerController>().Thrower = ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex];
+        //throwingObj.GetComponent<PowerController>().Thrower = ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex];
+        throwingObj.GetComponent<PowerController>().ThrowerName = ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].GetComponent<PlayerController>().UserName;
         //ThrowPoweredRunners.Remove(ThrowPoweredRunners[LocalPlayer.GetComponent<PlayerController>().throwingPlayerIndex].gameObject);
     }
 
-    public void GotHit(GameObject thrower, GameObject victim)
+    public void GotHit(string thrower, string victim)
     {
-        string t = thrower.GetComponent<PlayerController>().UserName;
-        string v = victim.GetComponent<PlayerController>().UserName;
-        pv.RPC("OnHit", RpcTarget.AllBuffered, t, v);
+        pv.RPC("OnHit", RpcTarget.AllBuffered, thrower, victim);
     }
 
     [PunRPC]

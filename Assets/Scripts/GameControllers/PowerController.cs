@@ -9,7 +9,7 @@ public class PowerController : MonoBehaviourPun, IPunObservable
     public PowerupTypes powerup;
 
     public GameObject Thrower;
-
+    public string ThrowerName;
     private GameObject CollidedWith;
     private SpriteRenderer _sprite;
     private GameController gameController;
@@ -35,7 +35,7 @@ public class PowerController : MonoBehaviourPun, IPunObservable
     {
         CollidedWith = collision.gameObject;
 
-        if (CollidedWith.CompareTag("Player"))
+        if (CollidedWith.CompareTag("Player") && CollidedWith.GetComponent<PlayerController>().pv.IsMine)
         {
             switch (powerup)
             {
@@ -88,22 +88,37 @@ public class PowerController : MonoBehaviourPun, IPunObservable
 
                 case PowerupTypes.Thrown:
 
-                    if (Thrower != null && Thrower != CollidedWith)
-                    {
-                        if (!gameController.VictimRunners.Contains(CollidedWith))
-                        {
-                            gameController.VictimRunners.Add(CollidedWith);
-
-                            gameController.shakeCamera(0.15f, 0.2f, 2.0f);
-                            gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
-                            gameController.GetComponent<AudioSource>().Play();
-                            gameController.GotHit(Thrower, CollidedWith);
-                        }
-                    }
-                    Destroy(gameObject, 0.25f);
+                    //CollidedWith.GetComponent<PlayerController>().hitPos = transform.localPosition;
+                    //CollidedWith.GetComponent<PlayerController>().GotAttack();
+                    //StartCoroutine(GotHit());
                     break;
             }
         }
+    }
+
+    public void GotHit()
+    {
+        //yield return new WaitForSeconds(0.1f);
+
+        if (Thrower != null && Thrower != CollidedWith)
+        {
+            if (!CollidedWith.GetComponent<PlayerController>().canRace)
+            {
+                if (!gameController.VictimRunners.Contains(CollidedWith))
+                {
+                    gameController.VictimRunners.Add(CollidedWith);
+
+                    gameController.shakeCamera(0.15f, 0.2f, 2.0f);
+                    gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
+                    gameController.GetComponent<AudioSource>().Play();
+
+                    string t = Thrower.GetComponent<PlayerController>().UserName;
+                    string v = CollidedWith.GetComponent<PlayerController>().UserName;
+                    gameController.GotHit(t, v);
+                }
+            }
+        }
+        Destroy(gameObject, 0.25f);
     }
 
     [PunRPC]
@@ -127,11 +142,11 @@ public class PowerController : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(Thrower);
+            stream.SendNext(ThrowerName);
         }
         if (stream.IsReading)
         {
-            Thrower = (GameObject)stream.ReceiveNext();
+            ThrowerName = (string)stream.ReceiveNext();
         }
 
     }

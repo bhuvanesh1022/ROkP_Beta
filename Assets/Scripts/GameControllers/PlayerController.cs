@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     public bool startTimer;
     public float elapsedTime;
     public int speedingPlayerIndex;
+
     public int throwingPlayerIndex;
     public int NoOfJumps;
     public int NoOfThrows;
@@ -191,10 +192,19 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
                 break;
 
             case "Thrown":
-                Debug.Log("hit");
-                hitPos = transform.localPosition;
-                GotAttack();
+
+                if (pv.IsMine)
+                {
+                    if (TriggeredBy.GetComponent<PowerController>().ThrowerName != UserName)
+                    {
+                        Debug.Log("hit");
+                        hitPos = transform.localPosition;
+
+                        GotAttack();
+                    }
+                }
                 break;
+
         }
     }
 
@@ -214,9 +224,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
         dataManager.m_TargetSpeed += 30;
         dataManager.m_MaxRunForce += 1000;
+        gameController.speedLine.SetActive(true);
 
         yield return new WaitForSeconds(1.0f);
 
+        gameController.speedLine.SetActive(false);
         dataManager.m_TargetSpeed -= 30;
         dataManager.m_MaxRunForce -= 1000;
         currentState = RunnerState.run;
@@ -230,11 +242,21 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         canRace = false;
         playerMovement.m_Animator.SetBool("stun", true);
         currentState = RunnerState.stun;
+        //TriggeredBy.GetComponent<PowerController>().GotHit();
+        gameController.shakeCamera(0.15f, 0.2f, 2.0f);
+        gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
+        gameController.GetComponent<AudioSource>().Play();
         StartCoroutine(StartToRun());
     }
 
     IEnumerator StartToRun()
     {
+        while (TriggeredBy.GetComponent<PowerController>().ThrowerName ==  null)
+        {
+            yield return null;
+        }
+        gameController.GotHit(TriggeredBy.GetComponent<PowerController>().ThrowerName, UserName);
+        Destroy(TriggeredBy, 0.25f);
         yield return new WaitForSeconds(2f);
         canRace = true;
         currentState = RunnerState.run;

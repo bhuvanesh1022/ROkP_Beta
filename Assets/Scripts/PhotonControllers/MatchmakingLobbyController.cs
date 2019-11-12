@@ -12,6 +12,7 @@ public class MatchmakingLobbyController : MonoBehaviourPunCallbacks
     public Hashtable myCustomProperties = new Hashtable();
 
     [SerializeField] private GameObject lobbyConnectBtn;
+    [SerializeField] private GameObject loadingBtn;
     [SerializeField] private GameObject lobbyPanel;
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject titlePanel;
@@ -54,6 +55,7 @@ public class MatchmakingLobbyController : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         lobbyConnectBtn.SetActive(true);
+        loadingBtn.SetActive(false);
         roomListings = new List<RoomInfo>();
 
         if (PlayerPrefs.HasKey("NickName"))

@@ -96,7 +96,8 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
         roomNameDisplay.text = PhotonNetwork.CurrentRoom.Name;
-        EnterBtn.SetActive(true);
+        //EnterBtn.SetActive(true);
+        EnterRoom();
         Debug.Log("Joined");
     }
 

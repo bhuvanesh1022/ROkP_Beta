@@ -584,6 +584,71 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeLayers.Array.data[0].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[0].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[1].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[2].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[3].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[4].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[5].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[6].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[7].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[8].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[8].Type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7173726747239721777, guid: d08159e94cbc64ca3a524b5983951546,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[8].Name
+      value: idle
+      objectReference: {fileID: 0}
     - target: {fileID: 953593038285896442, guid: d08159e94cbc64ca3a524b5983951546,
         type: 3}
       propertyPath: m_Mesh

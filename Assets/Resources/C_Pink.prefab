@@ -465,6 +465,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4451433877602085137, guid: 9653ce11c7b0a83409c0690bcd662443,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -4451433877602085137, guid: 9653ce11c7b0a83409c0690bcd662443,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[8].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4451433877602085137, guid: 9653ce11c7b0a83409c0690bcd662443,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[8].Type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -4451433877602085137, guid: 9653ce11c7b0a83409c0690bcd662443,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[8].Name
+      value: idle
+      objectReference: {fileID: 0}
     - target: {fileID: -6506125077183258120, guid: 9653ce11c7b0a83409c0690bcd662443,
         type: 3}
       propertyPath: viewIdField

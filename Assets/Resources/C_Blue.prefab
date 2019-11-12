@@ -570,6 +570,11 @@ PrefabInstance:
       propertyPath: m_SynchronizeParameters.Array.data[8].Name
       value: idle
       objectReference: {fileID: 0}
+    - target: {fileID: -2267542468661024311, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[8].SynchronizeType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4920427416720922868, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
       propertyPath: viewIdField
@@ -588,7 +593,7 @@ PrefabInstance:
     - target: {fileID: 2968864315191568682, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0943346
+      value: 0.09433467
       objectReference: {fileID: 0}
     - target: {fileID: 2968864313995926987, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
@@ -613,7 +618,7 @@ PrefabInstance:
     - target: {fileID: 2968864313995926987, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
       propertyPath: m_Solver.targetPosition.x
-      value: 2.8819664
+      value: 0.021966517
       objectReference: {fileID: 0}
     - target: {fileID: 2968864313995926987, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
@@ -648,7 +653,7 @@ PrefabInstance:
     - target: {fileID: 2968864314035794787, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
       propertyPath: m_Solver.targetPosition.x
-      value: 3.6516018
+      value: 0.79160196
       objectReference: {fileID: 0}
     - target: {fileID: 2968864314035794787, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
@@ -663,17 +668,17 @@ PrefabInstance:
     - target: {fileID: 2968864314956922619, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
       propertyPath: m_Solver.m_SolverPoses.Array.data[0].solverPosition.y
-      value: 0.000000059604645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2968864314956922619, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
       propertyPath: m_Solver.m_SolverPoses.Array.data[2].solverPosition.y
-      value: -0.000000044703484
+      value: 0.000000014901161
       objectReference: {fileID: 0}
     - target: {fileID: 2968864314956922619, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
       propertyPath: m_Solver.targetPosition.x
-      value: 2.8826349
+      value: 0.022634909
       objectReference: {fileID: 0}
     - target: {fileID: 2968864314956922619, guid: 5bd861d5ceb2c4f29b38b6fa2a7582ab,
         type: 3}
