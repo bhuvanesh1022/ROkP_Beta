@@ -50,8 +50,15 @@ public class PowerController : MonoBehaviourPun, IPunObservable
                         gameController.ThrowPoweredRunners.Remove(CollidedWith);
                     }
 
+                    for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
+                    {
+                        if (gameController.PowerUpBtns[i].activeInHierarchy)
+                        {
+                            gameController.PowerUpBtns[i].SetActive(false);
+                        }
+                    }
                     gameController.PowerUpBtns[0].SetActive(true);
-                    gameController.PowerUpBtns[1].SetActive(false);
+
 
                     pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
                     break;
@@ -67,7 +74,13 @@ public class PowerController : MonoBehaviourPun, IPunObservable
                         gameController.SpeedPoweredRunners.Remove(CollidedWith);
                     }
 
-                    gameController.PowerUpBtns[0].SetActive(false);
+                    for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
+                    {
+                        if (gameController.PowerUpBtns[i].activeInHierarchy)
+                        {
+                            gameController.PowerUpBtns[i].SetActive(false);
+                        }
+                    }
                     gameController.PowerUpBtns[1].SetActive(true);
 
                     pv.RPC("DisablePickup", RpcTarget.AllBuffered, null);
@@ -75,18 +88,17 @@ public class PowerController : MonoBehaviourPun, IPunObservable
 
                 case PowerupTypes.Thrown:
 
-                    if (!gameController.VictimRunners.Contains(CollidedWith))
+                    if (Thrower != null && Thrower != CollidedWith)
                     {
-                        gameController.VictimRunners.Add(CollidedWith);
-                    }
+                        if (!gameController.VictimRunners.Contains(CollidedWith))
+                        {
+                            gameController.VictimRunners.Add(CollidedWith);
 
-                    gameController.shakeCamera(0.15f, 0.2f, 2.0f);
-                    gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
-                    gameController.GetComponent<AudioSource>().Play();
-
-                    if (Thrower != null)
-                    {
-                        gameController.GotHit(Thrower, CollidedWith);
+                            gameController.shakeCamera(0.15f, 0.2f, 2.0f);
+                            gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
+                            gameController.GetComponent<AudioSource>().Play();
+                            gameController.GotHit(Thrower, CollidedWith);
+                        }
                     }
                     Destroy(gameObject, 0.25f);
                     break;

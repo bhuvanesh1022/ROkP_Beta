@@ -284,25 +284,25 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
             for (int i = 0; i < dataManager.Runners.Count; i++)
             {
-                if (maxJump <= dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps)
+                if (maxJump < dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps)
                 {
                     maxJump = dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps;
                     maxJumpUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
                 }
 
-                if (maxThrow <- dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows)
+                if (maxThrow < dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows)
                 {
                     maxThrow = dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows;
                     maxThrowUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
                 }
 
-                if (maxHit <= dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits)
+                if (maxHit < dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits)
                 {
                     maxHit = dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits;
                     maxHitUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
                 }
 
-                if (maxSpeedBoost <= dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost)
+                if (maxSpeedBoost < dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost)
                 {
                     maxSpeedBoost = dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost;
                     maxSpeedBoostUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
