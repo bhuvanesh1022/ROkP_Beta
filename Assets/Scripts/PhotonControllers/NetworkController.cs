@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class NetworkController : MonoBehaviourPunCallbacks
 {
     public static NetworkController networkController;
+    public AudioSource BG;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void ReloadApp()
     {
+        BG.Stop();
         PhotonNetwork.Disconnect();
         SceneManager.LoadScene(0);
     }
