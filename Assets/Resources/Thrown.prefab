@@ -87,10 +87,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 6161400245681723595}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerup: 2
   Thrower: {fileID: 0}
+  ThrowerName: 
 --- !u!1 &5192551540723591029
 GameObject:
   m_ObjectHideFlags: 0
