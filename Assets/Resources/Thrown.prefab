@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6161400245681723595}
   - component: {fileID: -493007377504184340}
   - component: {fileID: -1007926932545344940}
+  - component: {fileID: 4055177604569611960}
   m_Layer: 0
   m_Name: Thrown
   m_TagString: Thrown
@@ -144,6 +145,25 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!95 &4055177604569611960
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192551538910195447}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cedc6f200d0c7434f855ef4fa115678b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5192551540723591029
 GameObject:
   m_ObjectHideFlags: 0

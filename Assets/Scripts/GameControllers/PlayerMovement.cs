@@ -92,6 +92,8 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         //Debug.Log(m_playerController.canRace);
         if (m_playerController.canRace)
         {
+            rn = !isWallJumping && !m_WallInFront && facingFront && m_Grounded;
+
             if (pv.IsMine)
                 MoveMe();
             else
@@ -105,7 +107,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         m_WallInFront = Physics2D.OverlapBox(m_WallCheck.position, new Vector2(WallCheckWi, WallCheckHi), 0, m_WhatIsWall);
         m_Grounded = Physics2D.OverlapBox(m_GroundCheck.position, new Vector2(GroundCheckWi, GroundCheckHi), 0, m_WhatIsGround);
 
-        rn = !isWallJumping && !m_WallInFront && facingFront && m_Grounded;
         idl = m_WallInFront && !isWallJumping && !isSliding;
 
     }

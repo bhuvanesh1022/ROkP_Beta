@@ -407,13 +407,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: 'boostrun '
+  - m_Name: stun
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: stun
+  - m_Name: boostrun
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -470,34 +470,34 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -3251165451876558338}
-    m_Position: {x: -160, y: -60, z: 0}
+    m_Position: {x: -170, y: -70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2991808676263340311}
-    m_Position: {x: -160, y: 40, z: 0}
+    m_Position: {x: -160, y: 50, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 134001870700276540}
-    m_Position: {x: -160, y: 140, z: 0}
+    m_Position: {x: -160, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8867889060818620893}
-    m_Position: {x: -760, y: 250, z: 0}
+    m_Position: {x: -570, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9045851550524065808}
     m_Position: {x: -160, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1124380602436293900}
-    m_Position: {x: 520, y: 380, z: 0}
+    m_Position: {x: 350, y: 340, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6479851194543951607}
-    m_Position: {x: 180, y: 380, z: 0}
+    m_Position: {x: 110, y: 340, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4166946538861907204}
-    m_Position: {x: -410, y: 410, z: 0}
+    m_Position: {x: -380, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5607463272806815728}
-    m_Position: {x: -760, y: 530, z: 0}
+    m_Position: {x: -570, y: 530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4599818178958406570}
-    m_Position: {x: -1080, y: 410, z: 0}
+    m_Position: {x: -750, y: 400, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 6235165862816688102}
@@ -509,11 +509,11 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 390, y: 240, z: 0}
-  m_EntryPosition: {x: -1140, y: 260, z: 0}
-  m_ExitPosition: {x: 820, y: -100, z: 0}
+  m_AnyStatePosition: {x: 260, y: 240, z: 0}
+  m_EntryPosition: {x: -150, y: -170, z: 0}
+  m_ExitPosition: {x: -140, y: 340, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 8867889060818620893}
+  m_DefaultState: {fileID: -3251165451876558338}
 --- !u!1101 &1177443489235019364
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -731,7 +731,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: 'boostrun '
+    m_ConditionEvent: boostrun
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2991808676263340311}
@@ -739,9 +739,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.7521389
+  m_ExitTime: 0.9951321
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

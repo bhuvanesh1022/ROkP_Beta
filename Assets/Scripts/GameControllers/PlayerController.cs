@@ -109,6 +109,16 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             pv.RPC("SyncPosition", RpcTarget.AllBuffered, null);
         }
 
+        //if (currentState == RunnerState.stun)
+        //{
+        //    for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
+        //    {
+        //        if (gameController.PowerUpBtns[i].activeInHierarchy)
+        //        {
+        //            gameController.PowerUpBtns[i].SetActive(false);
+        //        }
+        //    }
+        //}
 
     }
 
@@ -227,15 +237,15 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         {
             float temp = gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
             gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
-            dataManager.m_TargetSpeed += 10;
-            dataManager.m_MaxRunForce += 300;
+            dataManager.m_TargetSpeed += 30;
+            dataManager.m_MaxRunForce += 1000;
             gameController.speedLine.SetActive(true);
 
             yield return new WaitForSeconds(1.0f);
 
             gameController.speedLine.SetActive(false);
-            dataManager.m_TargetSpeed -= 10;
-            dataManager.m_MaxRunForce -= 300;
+            dataManager.m_TargetSpeed -= 30;
+            dataManager.m_MaxRunForce -= 1000;
             playerMovement.speedRunning = false;
             //gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
             gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
@@ -250,8 +260,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         playerMovement.stunned = true;
         gameController.shakeCamera(0.15f, 0.2f, 2.0f);
         gameController.PlayAudioFX("hit");
-        //gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
-        //gameController.GetComponent<AudioSource>().Play();
         StartCoroutine(StartToRun());
     }
 

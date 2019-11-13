@@ -154,6 +154,8 @@ public class GameController : MonoBehaviourPun, IPunObservable
 
     public void ReloadApp()
     {
+        AC.GetComponent<AudioSource>().Stop();
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene(0);
     }
 

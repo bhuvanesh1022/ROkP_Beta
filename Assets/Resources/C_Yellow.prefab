@@ -118,7 +118,7 @@ RectTransform:
   m_GameObject: {fileID: 1890102705562089386}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 3924473699411097275}
   - {fileID: 1802513551618015831}
@@ -369,6 +369,8 @@ MonoBehaviour:
   WallCheckWi: 1
   WallCheckHi: 2
   runspeed: 0
+  speedRunning: 0
+  stunned: 0
   m_Rigidbody2D: {fileID: 6338092860532381955}
   m_Animator: {fileID: 8954696811980571285}
   pv: {fileID: -1878540589505881340}
@@ -828,7 +830,7 @@ PrefabInstance:
     - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
         type: 3}
       propertyPath: m_SynchronizeParameters.Array.data[8].Type
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
         type: 3}
@@ -838,6 +840,41 @@ PrefabInstance:
     - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
         type: 3}
       propertyPath: m_SynchronizeParameters.Array.data[8].Name
+      value: 'boostrun '
+      objectReference: {fileID: 0}
+    - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[3].Name
+      value: win
+      objectReference: {fileID: 0}
+    - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[4].Name
+      value: loss
+      objectReference: {fileID: 0}
+    - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[5].Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[5].Name
+      value: fall
+      objectReference: {fileID: 0}
+    - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[6].Type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[6].Name
+      value: run
+      objectReference: {fileID: 0}
+    - target: {fileID: -8312211741643658790, guid: d299573045375b948b08c6203666b2d2,
+        type: 3}
+      propertyPath: m_SynchronizeParameters.Array.data[7].Name
       value: idle
       objectReference: {fileID: 0}
     - target: {fileID: 1420513549866432406, guid: d299573045375b948b08c6203666b2d2,

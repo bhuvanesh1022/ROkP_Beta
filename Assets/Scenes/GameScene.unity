@@ -937,6 +937,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: cd2fd888b8d4744e598a28468659c77b,
         type: 3}
+    - target: {fileID: 8904059722719772964, guid: f78d13703ff92463089c05818b52b7cb,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 12.880088
+      objectReference: {fileID: 0}
+    - target: {fileID: 8904059722719772964, guid: f78d13703ff92463089c05818b52b7cb,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 7.6567783
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f78d13703ff92463089c05818b52b7cb, type: 3}
 --- !u!1 &66235310 stripped
@@ -1818,7 +1828,7 @@ MonoBehaviour:
   m_JumpForce: 30
   m_GravityMultiplier: 7.5
   m_TerminalSpeed: -100
-  m_WallJumpForce: 20
+  m_WallJumpForce: 15
   m_WallJumpAmplitude: 30
   m_WallSlideGravity: 12
   Positioned: {fileID: 2139169716}
@@ -10091,6 +10101,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: cd2fd888b8d4744e598a28468659c77b,
         type: 3}
+    - target: {fileID: 4050483654180663784, guid: 1ce517e5d5539f14898da691c3fc00b4,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 12.640219
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050483654180663784, guid: 1ce517e5d5539f14898da691c3fc00b4,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 8.136516
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ce517e5d5539f14898da691c3fc00b4, type: 3}
 --- !u!1 &2043635020 stripped
