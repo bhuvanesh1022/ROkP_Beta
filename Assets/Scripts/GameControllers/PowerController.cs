@@ -88,9 +88,6 @@ public class PowerController : MonoBehaviourPun, IPunObservable
 
                 case PowerupTypes.Thrown:
 
-                    //CollidedWith.GetComponent<PlayerController>().hitPos = transform.localPosition;
-                    //CollidedWith.GetComponent<PlayerController>().GotAttack();
-                    //StartCoroutine(GotHit());
                     break;
             }
         }
@@ -98,8 +95,6 @@ public class PowerController : MonoBehaviourPun, IPunObservable
 
     public void GotHit()
     {
-        //yield return new WaitForSeconds(0.1f);
-
         if (Thrower != null && Thrower != CollidedWith)
         {
             if (!CollidedWith.GetComponent<PlayerController>().canRace)

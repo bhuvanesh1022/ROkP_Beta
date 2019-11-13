@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public float FinishDistance;
     public string UserName;
+    public TextMeshProUGUI myName;
     public bool isWon;
     public bool isFinished;
     public bool canRace;
@@ -78,6 +79,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             UserName = pv.Owner.NickName;
         }
 
+        myName.text = UserName;
+
     }
 
     private void Update()
@@ -106,6 +109,16 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             pv.RPC("SyncPosition", RpcTarget.AllBuffered, null);
         }
 
+        //if (currentState == RunnerState.stun)
+        //{
+        //    for (int i = 0; i < gameController.PowerUpBtns.Count; i++)
+        //    {
+        //        if (gameController.PowerUpBtns[i].activeInHierarchy)
+        //        {
+        //            gameController.PowerUpBtns[i].SetActive(false);
+        //        }
+        //    }
+        //}
 
     }
 
@@ -193,9 +206,9 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
             case "Thrown":
 
-                if (pv.IsMine)
+                if (pv.IsMine && !isFinished)
                 {
-                    if (TriggeredBy.GetComponent<PowerController>().ThrowerName != UserName)
+                    if (TriggeredBy.GetComponent<PowerController>().ThrowerName != UserName && TriggeredBy.GetComponent<PowerController>().ThrowerName != null)
                     {
                         Debug.Log("hit");
                         hitPos = transform.localPosition;
@@ -211,29 +224,32 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     public void  SpeedBoost()
     {
         gameController.PowerUpBtns[0].SetActive(false);
-        gameController.StartCoroutine(BoostSpeed());
         gameController.StartCoroutine(gameController.CameraRushIn());
         gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
+        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetTrigger("boostrun");
+        playerMovement.speedRunning = true;
+        StartCoroutine(BoostSpeed());
     }
 
     IEnumerator BoostSpeed()
     {
-        float temp = gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
-        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", true);
-        currentState = RunnerState.speedRun;
-        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
-        dataManager.m_TargetSpeed += 30;
-        dataManager.m_MaxRunForce += 1000;
-        gameController.speedLine.SetActive(true);
+        if (pv.IsMine)
+        {
+            float temp = gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
+            gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
+            dataManager.m_TargetSpeed += 30;
+            dataManager.m_MaxRunForce += 1000;
+            gameController.speedLine.SetActive(true);
 
-        yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.0f);
 
-        gameController.speedLine.SetActive(false);
-        dataManager.m_TargetSpeed -= 30;
-        dataManager.m_MaxRunForce -= 1000;
-        currentState = RunnerState.run;
-        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
-        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
+            gameController.speedLine.SetActive(false);
+            dataManager.m_TargetSpeed -= 30;
+            dataManager.m_MaxRunForce -= 1000;
+            playerMovement.speedRunning = false;
+            //gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
+            gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
+        }
     }
 
     public void GotAttack()
@@ -241,25 +257,19 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         NoOfHits++;
         canRace = false;
         playerMovement.m_Animator.SetBool("stun", true);
-        currentState = RunnerState.stun;
-        //TriggeredBy.GetComponent<PowerController>().GotHit();
+        playerMovement.stunned = true;
         gameController.shakeCamera(0.15f, 0.2f, 2.0f);
-        gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
-        gameController.GetComponent<AudioSource>().Play();
+        gameController.PlayAudioFX("hit");
         StartCoroutine(StartToRun());
     }
 
     IEnumerator StartToRun()
     {
-        while (TriggeredBy.GetComponent<PowerController>().ThrowerName ==  null)
-        {
-            yield return null;
-        }
         gameController.GotHit(TriggeredBy.GetComponent<PowerController>().ThrowerName, UserName);
         Destroy(TriggeredBy, 0.25f);
         yield return new WaitForSeconds(2f);
         canRace = true;
-        currentState = RunnerState.run;
+        playerMovement.stunned = false;
         GetComponent<PlayerMovement>().m_Animator.SetBool("stun", false);
         gameController.VictimRunners.Remove(gameObject);
     }

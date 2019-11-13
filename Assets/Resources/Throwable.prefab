@@ -87,10 +87,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 1215447714748444299}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerup: 1
-  Triggered: []
   Thrower: {fileID: 0}
+  ThrowerName: 
 --- !u!1 &5192551540723591029
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +165,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

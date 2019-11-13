@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     public float WallCheckWi;
     public float WallCheckHi;
     public float runspeed;
+    public bool speedRunning;
+    public bool stunned;
     public Rigidbody2D m_Rigidbody2D;
     public Animator m_Animator;
     public PhotonView pv;
@@ -90,6 +92,8 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         //Debug.Log(m_playerController.canRace);
         if (m_playerController.canRace)
         {
+            rn = !isWallJumping && !m_WallInFront && facingFront && m_Grounded;
+
             if (pv.IsMine)
                 MoveMe();
             else
@@ -103,7 +107,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         m_WallInFront = Physics2D.OverlapBox(m_WallCheck.position, new Vector2(WallCheckWi, WallCheckHi), 0, m_WhatIsWall);
         m_Grounded = Physics2D.OverlapBox(m_GroundCheck.position, new Vector2(GroundCheckWi, GroundCheckHi), 0, m_WhatIsGround);
 
-        rn = !isWallJumping && !m_WallInFront && facingFront && m_Grounded;
         idl = m_WallInFront && !isWallJumping && !isSliding;
 
     }
@@ -137,7 +140,15 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         if (m_Rigidbody2D.velocity.y <= m_dataManager.m_TerminalSpeed)
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_dataManager.m_TerminalSpeed);
 
-        if (m_playerController.currentState == PlayerController.RunnerState.run)
+        if (speedRunning)
+        {
+            m_Animator.SetBool("run", false);
+        }
+        else if (stunned)
+        {
+            m_Animator.SetBool("run", false);
+        }
+        else
         {
             m_Animator.SetBool("run", rn);
         }
@@ -173,7 +184,21 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         // And then smoothing it out and applying it to the character
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-        m_playerController.currentState = PlayerController.RunnerState.run;
+        if (speedRunning)
+        {
+            m_playerController.currentState = PlayerController.RunnerState.speedRun;
+        }
+        else if (stunned)
+        {
+            m_playerController.currentState = PlayerController.RunnerState.stun;
+        }
+        else
+        {
+            m_playerController.currentState = PlayerController.RunnerState.run;
+        }
+
+
+
     }
 
     void Jump()

@@ -85,6 +85,18 @@ public class GameController : MonoBehaviourPun, IPunObservable
                 DM.Runners[i].elapsedTime += Time.deltaTime;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (PowerUpBtns[0].activeInHierarchy)
+            {
+                SpeedUp();
+            }
+            else if (PowerUpBtns[1].activeInHierarchy)
+            {
+                ThrowUp();
+            }
+        }
+
     }
 
     private void CreatePlayer()
@@ -142,6 +154,8 @@ public class GameController : MonoBehaviourPun, IPunObservable
 
     public void ReloadApp()
     {
+        AC.GetComponent<AudioSource>().Stop();
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene(0);
     }
 
@@ -209,13 +223,13 @@ public class GameController : MonoBehaviourPun, IPunObservable
             yield return null;
         }
         myCam.orthographicSize = 10f;
-        myCam.GetComponent<CameraFollow>().offset.y = 6.5f;
+        myCam.GetComponent<CameraFollow>().offset.x = 6.5f;
     }
 
     public void SpeedUp()
     {
         LocalPlayer.GetComponent<PlayerController>().SpeedBoost();
-        pv.RPC("PlayAudioGlobally", RpcTarget.AllBuffered, null);
+        PlayAudioFX("speedBoost");
 
         //PowerUpBtns[0].SetActive(false);
         //StartCoroutine(BoostSpeed());
@@ -242,10 +256,26 @@ public class GameController : MonoBehaviourPun, IPunObservable
     ////    //SpeedPoweredRunners.Remove(SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].gameObject);
     //}
 
-    [PunRPC]
-    public void PlayAudioGlobally()
+    public void PlayAudioFX(string fx)
     {
-        AS.clip = AC.SpeedBoost;
+        pv.RPC("PlayAudioGlobally", RpcTarget.AllBuffered, fx);
+    }
+
+    [PunRPC]
+    public void PlayAudioGlobally(string powerType)
+    {
+        switch (powerType)
+        {
+            case "speedBoost":
+
+                AS.clip = AC.SpeedBoost;
+                break;
+
+            case "hit":
+
+                AS.clip = AC.Hit;
+                break;
+        }
         AS.Play();
     }
 
@@ -253,6 +283,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
     {
         PowerUpBtns[1].SetActive(false);
         StartCoroutine(CameraFlyOff());
+        pv.RPC("PlayAudioGlobally", RpcTarget.AllBuffered, "speedBoost");
 
         if (pv.IsMine)
         {
