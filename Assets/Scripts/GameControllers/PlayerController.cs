@@ -65,6 +65,11 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             dataManager.Runners.Add(GetComponent<PlayerController>());
         }
 
+        if (!dataManager.RunnersToFollow.Contains(gameObject))
+        {
+            dataManager.RunnersToFollow.Add(gameObject);
+        }
+
         if (pv.IsMine)
         {
             UserName = PhotonNetwork.NickName;

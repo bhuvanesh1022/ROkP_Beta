@@ -102,9 +102,17 @@ public class GameController : MonoBehaviourPun, IPunObservable
     private void CreatePlayer()
     {
         Runner = PhotonNetwork.Instantiate(Path.Combine(DC.myCharacter), Vector3.zero, Quaternion.identity).gameObject;
-        Runner.transform.position = gameController.spawnPoints[roomController.enteredAt - 1].position;
-        //Runner.GetComponent<PlayerController>().UserName = DC.myName;
         myCam.GetComponent<CameraFollow>().target = Runner.transform;
+
+        if (!Runner.GetComponent<DirectorController>())
+        {
+            Runner.transform.position = gameController.spawnPoints[roomController.enteredAt - 1].position;
+        }
+        else
+        {
+            Runner.transform.position = myCam.transform.position;
+        }
+
     }
 
     [PunRPC]
