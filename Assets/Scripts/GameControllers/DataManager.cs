@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DataManager : MonoBehaviourPun
 {
+    public List<GameObject> RunnersToFollow = new List<GameObject>();
     public List<PlayerController> Runners = new List<PlayerController>();
     public List<PlayerController> RunnersPositioned = new List<PlayerController>();
     public List<PlayerController> FinishedRunners = new List<PlayerController>();
