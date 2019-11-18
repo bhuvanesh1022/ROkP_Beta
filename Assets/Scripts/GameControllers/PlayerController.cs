@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     private DataManager dataManager;
     private GameController gameController;
+    private DirectorCall directorCall;
     private PlayerMovement playerMovement;
     private int totalRunners;
 
@@ -46,6 +47,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         dataManager = GameObject.FindWithTag("Manager").GetComponent<DataManager>();
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        directorCall = gameController.GetComponent<DirectorCall>();
         playerMovement = GetComponent<PlayerMovement>();
         canRace = false;
 
@@ -85,7 +87,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
 
         myName.text = UserName;
-
+        int index = dataManager.Runners.IndexOf(this);
+        directorCall.charactersToFollow[index].SetActive(true);
+        directorCall.charactersToFollow[index].GetComponent<Image>().sprite = ScoreBoardSprite;
+        directorCall.charactersToFollow[index].GetComponentInChildren<TextMeshProUGUI>().text = UserName;
     }
 
     private void Update()

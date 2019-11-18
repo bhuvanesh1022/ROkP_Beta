@@ -97,8 +97,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   directAs: 0
+  victim: {fileID: 0}
   targets: []
+  pv: {fileID: 775702112599880367}
   dataManager: {fileID: 0}
+  gameController: {fileID: 0}
 --- !u!114 &775702112599880367
 MonoBehaviour:
   m_ObjectHideFlags: 0
