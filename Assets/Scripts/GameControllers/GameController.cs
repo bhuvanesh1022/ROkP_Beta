@@ -18,6 +18,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
     private Camera myCam;
     private GameObject Runner;
     private MatchmakingRoomController roomController;
+    private DirectorCall directorCall;
 
     public float trackLength;
     public GameObject[] Tracks;
@@ -53,6 +54,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
             gameController = this;
         }
 
+        directorCall = GetComponent<DirectorCall>();
         AS = GetComponent<AudioSource>();
         AC = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>();
         DC = GameObject.FindWithTag("DataController").GetComponent<DataController>();
@@ -111,8 +113,8 @@ public class GameController : MonoBehaviourPun, IPunObservable
         else
         {
             Runner.transform.position = myCam.transform.position;
+            directorCall.director.SetActive(true);
         }
-
     }
 
     [PunRPC]
@@ -126,6 +128,11 @@ public class GameController : MonoBehaviourPun, IPunObservable
 
     public void StartRace()
     {
+        if (directorCall.charactersToFollow.Count != 0)
+        {
+            directorCall.ChangeDirectorMode(1);
+        }
+
         pv.RPC("LetsGo", RpcTarget.AllBuffered, null);
     }
 
@@ -238,31 +245,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
     {
         LocalPlayer.GetComponent<PlayerController>().SpeedBoost();
         PlayAudioFX("speedBoost");
-
-        //PowerUpBtns[0].SetActive(false);
-        //StartCoroutine(BoostSpeed());
-        //StartCoroutine(CameraRushIn());
-        //StartCoroutine(ShakyCamera(0.15f, 0.2f, 0.5f));
     }
-
-    //public IEnumerator BoostSpeed()
-    //{
-    //    float temp = SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
-    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", true);
-    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().currentState = PlayerController.RunnerState.speedRun;
-    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
-    //    DM.m_TargetSpeed += 30;
-    //    DM.m_MaxRunForce += 1000;
-
-    //    yield return new WaitForSeconds(1.0f);
-
-    //    DM.m_TargetSpeed -= 30;
-    //    DM.m_MaxRunForce -= 1000;
-    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
-    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerController>().currentState = PlayerController.RunnerState.speedRun;
-    //    SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
-    ////    //SpeedPoweredRunners.Remove(SpeedPoweredRunners[LocalPlayer.GetComponent<PlayerController>().speedingPlayerIndex].gameObject);
-    //}
 
     public void PlayAudioFX(string fx)
     {
@@ -291,7 +274,6 @@ public class GameController : MonoBehaviourPun, IPunObservable
     {
         PowerUpBtns[1].SetActive(false);
         StartCoroutine(CameraFlyOff());
-        pv.RPC("PlayAudioGlobally", RpcTarget.AllBuffered, "speedBoost");
 
         if (pv.IsMine)
         {
