@@ -48,6 +48,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     private bool isSliding;
     private bool m_Grounded;
     private bool m_WallInFront;
+    private bool canCountTouch;
     private PlayerController m_playerController;
     private DataManager m_dataManager;
 
@@ -80,11 +81,18 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             facingFront = true;
         }
 
-        if (isWallJumping)
-            isWallJumping &= !m_Grounded;
+        if (Input.touchCount == 0)
+        {
+            canCountTouch = true;
+        }
 
         if (m_WallInFront && !isWallJumping)
+        {
             m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
+        }
+
+        if (isWallJumping)
+            isWallJumping &= !m_Grounded;
     }
 
     private void FixedUpdate()
@@ -102,6 +110,12 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         else
         {
             m_Rigidbody2D.velocity = Vector2.zero;
+            runspeed = 0f;
+        }
+
+        if (m_Rigidbody2D.velocity.x < -1)
+        {
+            runspeed = 0f;
         }
 
         m_WallInFront = Physics2D.OverlapBox(m_WallCheck.position, new Vector2(WallCheckWi, WallCheckHi), 0, m_WhatIsWall);
@@ -120,7 +134,11 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         {
             if (Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f)
             {
-                Jump();
+                if (canCountTouch)
+                {
+                    Jump();
+                    canCountTouch = false;
+                }
             }
         }
 
@@ -164,19 +182,26 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     void Run()
     {
+        Debug.Log(m_Rigidbody2D.velocity);
+        float m_MinRunForce = m_dataManager.m_MaxRunForce / 10.0f;
         if (m_playerController.isFinished)
         {
             runspeed = 0;
             m_Rigidbody2D.velocity = Vector2.zero;
         }
-
-        if (m_Rigidbody2D.velocity.x <= m_dataManager.m_BaseSpeed)
-            runspeed += Time.deltaTime * m_dataManager.m_MaxRunForce;       
-        else if (m_Rigidbody2D.velocity.x > m_dataManager.m_BaseSpeed && m_Rigidbody2D.velocity.x <= m_dataManager.m_TargetSpeed)
-            runspeed += Time.deltaTime * m_dataManager.m_MaxRunForce / 10.0f;
-        else if (m_Rigidbody2D.velocity.x > m_dataManager.m_TargetSpeed)
+        
+        if (runspeed < m_dataManager.m_BaseSpeed && runspeed >= 0f)
+        {
+            runspeed += Time.deltaTime * m_dataManager.m_MaxRunForce;
+        }   
+        if (runspeed >= m_dataManager.m_BaseSpeed && runspeed < m_dataManager.m_TargetSpeed)
+        {
+            runspeed += Time.deltaTime * m_MinRunForce;
+        }
+        if (runspeed >= m_dataManager.m_TargetSpeed && !speedRunning)
+        {
             runspeed = m_dataManager.m_TargetSpeed;
-
+        }
 
         // Move the character by finding the target velocity
         Vector3 targetVelocity = new Vector2(runspeed, m_Rigidbody2D.velocity.y);
@@ -191,6 +216,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         else if (stunned)
         {
             m_playerController.currentState = PlayerController.RunnerState.stun;
+            runspeed = 0f;
         }
         else
         {
@@ -220,6 +246,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
                 facingFront = !facingFront;
                 transform.localScale = scale;
                 m_Rigidbody2D.velocity = Vector2.zero;
+                //runspeed = 0f;
 
                 if (!facingFront)
                     m_Rigidbody2D.AddForce(new Vector2(-m_dataManager.m_WallJumpForce, m_dataManager.m_WallJumpAmplitude), ForceMode2D.Impulse);
