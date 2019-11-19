@@ -30,7 +30,7 @@ public class MatchmakingLobbyController : MonoBehaviourPunCallbacks
 
     private List<RoomInfo> roomListings;
     private string roomName;
-    private int roomSize = 4;
+    private int roomSize = 6;
 
     private void Awake()
     {

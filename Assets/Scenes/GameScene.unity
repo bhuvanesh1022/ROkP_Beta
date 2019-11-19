@@ -2191,9 +2191,9 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  m_BaseSpeed: 4
-  m_TargetSpeed: 8
-  m_MaxRunForce: 12
+  m_BaseSpeed: 5
+  m_TargetSpeed: 10
+  m_MaxRunForce: 15
   m_JumpForce: 30
   m_GravityMultiplier: 7.5
   m_TerminalSpeed: -100
