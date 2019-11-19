@@ -266,6 +266,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         NoOfHits++;
         canRace = false;
+        TriggeredBy.GetComponent<Collider2D>().enabled = false;
         playerMovement.m_Animator.SetBool("stun", true);
         playerMovement.stunned = true;
         gameController.shakeCamera(0.15f, 0.2f, 2.0f);
@@ -276,7 +277,7 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     IEnumerator StartToRun()
     {
         gameController.GotHit(TriggeredBy.GetComponent<PowerController>().ThrowerName, UserName);
-        Destroy(TriggeredBy, 0.25f);
+        Destroy(TriggeredBy, 0.05f);
         yield return new WaitForSeconds(2f);
         canRace = true;
         playerMovement.stunned = false;
