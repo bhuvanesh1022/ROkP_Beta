@@ -93,28 +93,28 @@ public class PowerController : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void GotHit()
-    {
-        if (Thrower != null && Thrower != CollidedWith)
-        {
-            if (!CollidedWith.GetComponent<PlayerController>().canRace)
-            {
-                if (!gameController.VictimRunners.Contains(CollidedWith))
-                {
-                    gameController.VictimRunners.Add(CollidedWith);
+    //public void GotHit()
+    //{
+    //    if (Thrower != null && Thrower != CollidedWith)
+    //    {
+    //        if (!CollidedWith.GetComponent<PlayerController>().canRace)
+    //        {
+    //            if (!gameController.VictimRunners.Contains(CollidedWith))
+    //            {
+    //                gameController.VictimRunners.Add(CollidedWith);
 
-                    gameController.shakeCamera(0.15f, 0.2f, 2.0f);
-                    gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
-                    gameController.GetComponent<AudioSource>().Play();
+    //                gameController.shakeCamera(0.15f, 0.2f, 2.0f);
+    //                gameController.GetComponent<AudioSource>().clip = GameObject.FindWithTag("AudioManager").GetComponent<AudioControl>().Hit;
+    //                gameController.GetComponent<AudioSource>().Play();
 
-                    string t = Thrower.GetComponent<PlayerController>().UserName;
-                    string v = CollidedWith.GetComponent<PlayerController>().UserName;
-                    gameController.GotHit(t, v);
-                }
-            }
-        }
-        Destroy(gameObject, 0.25f);
-    }
+    //                string t = Thrower.GetComponent<PlayerController>().UserName;
+    //                string v = CollidedWith.GetComponent<PlayerController>().UserName;
+    //                gameController.GotHit(t, v);
+    //            }
+    //        }
+    //    }
+    //    Destroy(gameObject, 0.25f);
+    //}
 
     [PunRPC]
     public void DisablePickup()
