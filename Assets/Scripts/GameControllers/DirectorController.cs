@@ -12,9 +12,13 @@ public class DirectorController : MonoBehaviour
     public GameObject victim;
     public List<GameObject> targets = new List<GameObject>();
     public PhotonView pv;
+    public float zoomMax = 5;
+    public float zoomMin = 15;
 
     [SerializeField] private DataManager dataManager;
     [SerializeField] private GameController gameController;
+
+    private Vector3 touchStart;
 
     private void Awake()
     {
@@ -72,7 +76,7 @@ public class DirectorController : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
         Vector3 UpdatedPos = Vector3.zero;
 
@@ -80,11 +84,39 @@ public class DirectorController : MonoBehaviour
         {
             case DirectAs.freeCam:
 
+                Vector2 moveTo = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
                 if (Math.Abs(Input.GetAxis("Horizontal")) >= 0 && Math.Abs(Input.GetAxis("Vertical")) >= 0)
                 {
-                    UpdatedPos = new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * speed,
-                                                       Input.GetAxis("Vertical") * Time.deltaTime * speed, 0);
+                    UpdatedPos = new Vector3(moveTo.x * Time.deltaTime * speed, moveTo.y * Time.deltaTime * speed, 0);
                 }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
+
+                if (Input.touchCount == 2)
+                {
+                    Touch touchZero = Input.GetTouch(0);
+                    Touch touchOne = Input.GetTouch(1);
+
+                    Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+                    Vector2 touchOnePrevPos = touchZero.position - touchOne.deltaPosition;
+
+                    float prevMagnitude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+                    float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+                    float difference = currentMagnitude - prevMagnitude;
+
+                    Zoom(difference * 0.01f);
+                }
+                else if (Input.GetMouseButton(0))
+                {
+                    UpdatedPos = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
+
+                //Zoom(Input.GetAxis("Mouse ScrollWheel"));
                 transform.position += UpdatedPos;
                 break;
 
@@ -118,6 +150,11 @@ public class DirectorController : MonoBehaviour
                 transform.position = UpdatedPos;
                 break;
         }
+    }
+
+    void Zoom(float increment)
+    {
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - increment, zoomMin, zoomMax);
     }
 
     public void DirectorModeChange(int mode)

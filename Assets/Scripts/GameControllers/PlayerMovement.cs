@@ -108,10 +108,10 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
             runspeed = 0f;
         }
 
-        if (m_Rigidbody2D.velocity.x < -1)
-        {
-            runspeed = 0f;
-        }
+        //if (m_Rigidbody2D.velocity.x < -1)
+        //{
+        //    runspeed = 0f;
+        //}
 
         m_WallInFront = Physics2D.OverlapBox(m_WallCheck.position, new Vector2(WallCheckWi, WallCheckHi), 0, m_WhatIsWall);
         m_Grounded = Physics2D.OverlapBox(m_GroundCheck.position, new Vector2(GroundCheckWi, GroundCheckHi), 0, m_WhatIsGround);

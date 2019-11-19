@@ -293,6 +293,8 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
             for (int i = 0; i < dataManager.FinishedRunners.Count; i++)
             {
+                dataManager.FinishedRunners[i].transform.position = gameController.WinningPodium.GetChild(i).position;
+
                 if (i == 0)
                 {
                     dataManager.FinishedRunners[i].isWon = true;
@@ -320,7 +322,10 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
     {
         if (gameController.LocalPlayer.GetComponent<PlayerController>().isFinished)
         {
-            StartCoroutine(EnablingScoreBoard());
+            if(dataManager.FinishedRunners.Count == dataManager.Runners.Count)
+            {
+                StartCoroutine(EnablingScoreBoard());
+            }
 
             int maxJump = 0, maxThrow = 0, maxHit = 0, maxSpeedBoost = 0;
             string maxJumpUser = "", maxThrowUser = "", maxHitUser = "", maxSpeedBoostUser = "";

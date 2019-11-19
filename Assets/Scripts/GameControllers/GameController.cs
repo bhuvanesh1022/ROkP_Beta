@@ -24,6 +24,8 @@ public class GameController : MonoBehaviourPun, IPunObservable
     public GameObject[] Tracks;
     public List<Transform> finishPoints = new List<Transform>();
     public Transform finishLine;
+    public List<Transform> podiums = new List<Transform>();
+    public Transform WinningPodium;
     public GameObject LocalPlayer;
     public List<Transform> spawnPoints = new List<Transform>();
     public GameObject startBtn;
@@ -114,6 +116,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
         {
             Runner.transform.position = myCam.transform.position;
             directorCall.director.SetActive(true);
+            DM.Positioned.transform.parent.gameObject.SetActive(false);
         }
     }
 
@@ -122,6 +125,7 @@ public class GameController : MonoBehaviourPun, IPunObservable
     {
         Tracks[DC.trackID].SetActive(true);
         finishLine = finishPoints[ID];
+        WinningPodium = podiums[ID];
         trackLength = Vector3.Distance(Vector3.zero, finishLine.position);
     }
 
@@ -181,23 +185,26 @@ public class GameController : MonoBehaviourPun, IPunObservable
 
     public IEnumerator CameraRushIn()
     {
-        myCam.GetComponent<CameraFollow>().offset.y = 2;
-        while (myCam.orthographicSize > 5)
+        if (!gameController.LocalPlayer.GetComponent<DirectorController>())
         {
-            myCam.orthographicSize -= 0.5f;
-            yield return null;
-        }
-        myCam.orthographicSize = 7f;
+            myCam.GetComponent<CameraFollow>().offset.y = 2;
+            while (myCam.orthographicSize > 5)
+            {
+                myCam.orthographicSize -= 0.5f;
+                yield return null;
+            }
+            myCam.orthographicSize = 7f;
 
-        yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.0f);
 
-        while (myCam.orthographicSize < 10)
-        {
-            myCam.orthographicSize += 0.1f;
-            yield return null;
+            while (myCam.orthographicSize < 10)
+            {
+                myCam.orthographicSize += 0.1f;
+                yield return null;
+            }
+            myCam.orthographicSize = 10f;
+            myCam.GetComponent<CameraFollow>().offset.y = 6;
         }
-        myCam.orthographicSize = 10f;
-        myCam.GetComponent<CameraFollow>().offset.y = 6;
     }
 
     public void shakeCamera(float dur, float mag, float vect)
@@ -222,23 +229,26 @@ public class GameController : MonoBehaviourPun, IPunObservable
 
     public IEnumerator CameraFlyOff()
     {
-        myCam.GetComponent<CameraFollow>().offset.x = 15;
-        while (myCam.orthographicSize < 13)
+        if (!gameController.LocalPlayer.GetComponent<DirectorController>())
         {
-            myCam.orthographicSize += 0.5f;
-            yield return null;
-        }
-        myCam.orthographicSize = 13f;
+            myCam.GetComponent<CameraFollow>().offset.x = 15;
+            while (myCam.orthographicSize < 13)
+            {
+                myCam.orthographicSize += 0.5f;
+                yield return null;
+            }
+            myCam.orthographicSize = 13f;
 
-        yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.5f);
 
-        while (myCam.orthographicSize > 10)
-        {
-            myCam.orthographicSize -= 0.1f;
-            yield return null;
+            while (myCam.orthographicSize > 10)
+            {
+                myCam.orthographicSize -= 0.1f;
+                yield return null;
+            }
+            myCam.orthographicSize = 10f;
+            myCam.GetComponent<CameraFollow>().offset.x = 6.5f;
         }
-        myCam.orthographicSize = 10f;
-        myCam.GetComponent<CameraFollow>().offset.x = 6.5f;
     }
 
     public void SpeedUp()
