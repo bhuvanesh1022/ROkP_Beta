@@ -319,50 +319,46 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     [PunRPC]
     public void ShowScoreCard()
-    {
-        if (gameController.LocalPlayer.GetComponent<PlayerController>().isFinished)
+    {   
+        if (dataManager.FinishedRunners.Count == dataManager.Runners.Count)
         {
-            if(dataManager.FinishedRunners.Count == dataManager.Runners.Count)
-            {
-                StartCoroutine(EnablingScoreBoard());
-            }
-
-            int maxJump = 0, maxThrow = 0, maxHit = 0, maxSpeedBoost = 0;
-            string maxJumpUser = "", maxThrowUser = "", maxHitUser = "", maxSpeedBoostUser = "";
-
-            for (int i = 0; i < dataManager.Runners.Count; i++)
-            {
-                if (maxJump < dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps)
-                {
-                    maxJump = dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps;
-                    maxJumpUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
-                }
-
-                if (maxThrow < dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows)
-                {
-                    maxThrow = dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows;
-                    maxThrowUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
-                }
-
-                if (maxHit < dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits)
-                {
-                    maxHit = dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits;
-                    maxHitUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
-                }
-
-                if (maxSpeedBoost < dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost)
-                {
-                    maxSpeedBoost = dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost;
-                    maxSpeedBoostUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
-                }
-            }
-
-            gameController.maxUsers[0].text = maxJumpUser;
-            gameController.maxUsers[1].text = maxThrowUser;
-            gameController.maxUsers[2].text = maxHitUser;
-            gameController.maxUsers[3].text = maxSpeedBoostUser;
-
+            StartCoroutine(EnablingScoreBoard());
         }
+
+        int maxJump = 0, maxThrow = 0, maxHit = 0, maxSpeedBoost = 0;
+        string maxJumpUser = "", maxThrowUser = "", maxHitUser = "", maxSpeedBoostUser = "";
+
+        for (int i = 0; i < dataManager.Runners.Count; i++)
+        {
+            if (maxJump < dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps)
+            {
+                maxJump = dataManager.Runners[i].GetComponent<PlayerController>().NoOfJumps;
+                maxJumpUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+            }
+
+            if (maxThrow < dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows)
+            {
+                maxThrow = dataManager.Runners[i].GetComponent<PlayerController>().NoOfThrows;
+                maxThrowUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+            }
+
+            if (maxHit < dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits)
+            {
+                maxHit = dataManager.Runners[i].GetComponent<PlayerController>().NoOfHits;
+                maxHitUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+            }
+
+            if (maxSpeedBoost < dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost)
+            {
+                maxSpeedBoost = dataManager.Runners[i].GetComponent<PlayerController>().NoOfSpeedBoost;
+                maxSpeedBoostUser = dataManager.Runners[i].GetComponent<PlayerController>().UserName;
+            }
+        }
+
+        gameController.maxUsers[0].text = maxJumpUser;
+        gameController.maxUsers[1].text = maxThrowUser;
+        gameController.maxUsers[2].text = maxHitUser;
+        gameController.maxUsers[3].text = maxSpeedBoostUser;
     }
 
     IEnumerator EnablingScoreBoard()

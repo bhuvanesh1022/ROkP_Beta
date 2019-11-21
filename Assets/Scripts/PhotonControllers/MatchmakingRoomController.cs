@@ -159,7 +159,6 @@ public class MatchmakingRoomController : MonoBehaviourPunCallbacks, IPunObservab
         {
             if (characterSelected == PhotonNetwork.PlayerList.Length)
             {
-
                 PhotonNetwork.CurrentRoom.IsOpen = false;
                 PhotonNetwork.LoadLevel(multiPlayerSceneIndex);
             }
