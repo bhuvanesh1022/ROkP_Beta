@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System.Collections;
 
 public class MatchmakingLobbyController : MonoBehaviourPunCallbacks
 {
@@ -113,6 +114,34 @@ public class MatchmakingLobbyController : MonoBehaviourPunCallbacks
         mainPanel.SetActive(false);
         lobbyPanel.SetActive(true);
         PhotonNetwork.JoinLobby();
+    }
+
+    public void RefreshRoomList()
+    {
+        for (int i = roomsContainer.childCount - 1; i >= 0; i--)
+        {
+            Destroy(roomsContainer.GetChild(i).gameObject);
+        }
+
+        StartCoroutine(RefreshingRoomList());
+    }
+
+    IEnumerator RefreshingRoomList()
+    {
+        yield return new WaitForSeconds(.25f);
+
+        if (roomListings != null)
+        {
+            for (int i = 0; i < roomListings.Count; i++)
+            {
+                ListRoom(roomListings[i]);
+            }
+            Debug.Log("RoomList Refreshed");
+        }
+        else
+        {
+            Debug.Log("RoomList is empty");
+        }
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
