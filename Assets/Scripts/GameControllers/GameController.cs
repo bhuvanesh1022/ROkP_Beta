@@ -111,6 +111,16 @@ public class GameController : MonoBehaviourPun, IPunObservable
         if (!Runner.GetComponent<DirectorController>())
         {
             Runner.transform.position = gameController.spawnPoints[roomController.enteredAt - 1].position;
+
+            //if (!DM.Runners.Contains(Runner.GetComponent<PlayerController>()))
+            //{
+            //    DM.Runners.Add(Runner.GetComponent<PlayerController>());
+            //}
+
+            //if (!DM.RunnersToFollow.Contains(Runner))
+            //{
+            //    DM.RunnersToFollow.Add(Runner);
+            //}
         }
         else
         {
@@ -155,7 +165,20 @@ public class GameController : MonoBehaviourPun, IPunObservable
         for (int i = 0; i < countdown.Length; i++)
         {
             countdown[i].SetActive(true);
+
+            if (i == countdown.Length-1)
+            {
+                if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    if (Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f)
+                    {
+                        gameController.LocalPlayer.GetComponent<PlayerMovement>().iniBoost = true;
+                    }
+                }
+            }
+
             yield return new WaitForSeconds(1f);
+            gameController.LocalPlayer.GetComponent<PlayerMovement>().iniBoost = false;
             countdown[i].SetActive(false);
         }
 

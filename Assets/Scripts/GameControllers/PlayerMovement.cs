@@ -46,9 +46,11 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     private bool canCountTouch;
     private PlayerController m_playerController;
     private DataManager m_dataManager;
+    private GameController m_gameController;
 
     bool rn;
     bool idl;
+    public bool iniBoost;
 
     #endregion
 
@@ -56,6 +58,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     {
         m_playerController = GetComponent<PlayerController>();
         m_dataManager = GameObject.FindWithTag("Manager").GetComponent<DataManager>();
+        m_gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
     }
 
     void Start()
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     }
 
     void Update()
-    {
+    {   
         if (m_Grounded)
         {
             transform.localScale = iniScale;
@@ -123,14 +126,14 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     private void MoveMe()
     {
         if (!isWallJumping && !m_WallInFront && facingFront)
-            Run();
+            Run();            
 
         if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f)
             {
                 if (canCountTouch)
-                {
+                {   
                     Jump();
                     canCountTouch = false;
                 }
@@ -177,32 +180,39 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     void Run()
     {
-        Debug.Log(m_Rigidbody2D.velocity);
-        float m_MinRunForce = m_dataManager.m_MaxRunForce / 10.0f;
-        if (m_playerController.isFinished)
+        if (iniBoost)
         {
-            runspeed = 0;
-            m_Rigidbody2D.velocity = Vector2.zero;
+            m_playerController.SpeedBoost();
         }
-        
-        if (runspeed < m_dataManager.m_BaseSpeed && runspeed >= 0f)
+        else
         {
-            runspeed += Time.deltaTime * m_dataManager.m_MaxRunForce;
-        }   
-        if (runspeed >= m_dataManager.m_BaseSpeed && runspeed < m_dataManager.m_TargetSpeed)
-        {
-            runspeed += Time.deltaTime * m_MinRunForce;
-        }
-        if (runspeed >= m_dataManager.m_TargetSpeed && !speedRunning)
-        {
-            runspeed = m_dataManager.m_TargetSpeed;
-        }
+            Debug.Log(m_Rigidbody2D.velocity);
+            float m_MinRunForce = m_dataManager.m_MaxRunForce / 10.0f;
+            if (m_playerController.isFinished)
+            {
+                runspeed = 0;
+                m_Rigidbody2D.velocity = Vector2.zero;
+            }
 
-        // Move the character by finding the target velocity
-        Vector3 targetVelocity = new Vector2(runspeed, m_Rigidbody2D.velocity.y);
+            if (runspeed < m_dataManager.m_BaseSpeed && runspeed >= 0f)
+            {
+                runspeed += Time.deltaTime * m_dataManager.m_MaxRunForce;
+            }
+            if (runspeed >= m_dataManager.m_BaseSpeed && runspeed < m_dataManager.m_TargetSpeed)
+            {
+                runspeed += Time.deltaTime * m_MinRunForce;
+            }
+            if (runspeed >= m_dataManager.m_TargetSpeed && !speedRunning)
+            {
+                runspeed = m_dataManager.m_TargetSpeed;
+            }
 
-        // And then smoothing it out and applying it to the character
-        m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+            // Move the character by finding the target velocity
+            Vector3 targetVelocity = new Vector2(runspeed, m_Rigidbody2D.velocity.y);
+
+            // And then smoothing it out and applying it to the character
+            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+        }
 
         if (speedRunning)
         {
@@ -217,9 +227,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         {
             m_playerController.currentState = PlayerController.RunnerState.run;
         }
-
-
-
     }
 
     void Jump()
