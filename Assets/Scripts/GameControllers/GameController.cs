@@ -165,21 +165,10 @@ public class GameController : MonoBehaviourPun, IPunObservable
         for (int i = 0; i < countdown.Length; i++)
         {
             countdown[i].SetActive(true);
-
-            if (i == countdown.Length-1)
-            {
-                if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    if (Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f)
-                    {
-                        gameController.LocalPlayer.GetComponent<PlayerMovement>().iniBoost = true;
-                    }
-                }
-            }
-
+            gameController.LocalPlayer.GetComponent<PlayerMovement>().countDownIs = i;
             yield return new WaitForSeconds(1f);
-            gameController.LocalPlayer.GetComponent<PlayerMovement>().iniBoost = false;
             countdown[i].SetActive(false);
+            gameController.LocalPlayer.GetComponent<PlayerMovement>().countDownIs = i + 1;
         }
 
         startRace = true;

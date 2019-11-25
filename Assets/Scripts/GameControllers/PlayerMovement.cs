@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using Photon.Pun;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -50,7 +51,9 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     bool rn;
     bool idl;
+    bool detectableScreenArea;
     public bool iniBoost;
+    public int countDownIs;
 
     #endregion
 
@@ -72,7 +75,22 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     }
 
     void Update()
-    {   
+    {
+        detectableScreenArea = Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f;
+
+        if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (canCountTouch)
+            {
+                if (countDownIs == m_gameController.countdown.Length - 1)
+                {
+                    Debug.Log("speedBoost");
+                    iniBoost = true;
+                }
+                canCountTouch = false;
+            }
+        }
+
         if (m_Grounded)
         {
             transform.localScale = iniScale;
@@ -120,7 +138,11 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
         m_Grounded = Physics2D.OverlapBox(m_GroundCheck.position, new Vector2(GroundCheckWi, GroundCheckHi), 0, m_WhatIsGround);
 
         idl = m_WallInFront && !isWallJumping && !isSliding;
+    }
 
+    IEnumerator IniSpeed()
+    {
+        yield return null;
     }
 
     private void MoveMe()
@@ -130,7 +152,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
         if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f)
+            if (detectableScreenArea)
             {
                 if (canCountTouch)
                 {   
@@ -182,11 +204,11 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
     {
         if (iniBoost)
         {
-            m_playerController.SpeedBoost();
+            m_playerController.IniSpeedBoost();
         }
         else
         {
-            Debug.Log(m_Rigidbody2D.velocity);
+            //Debug.Log(m_Rigidbody2D.velocity);
             float m_MinRunForce = m_dataManager.m_MaxRunForce / 10.0f;
             if (m_playerController.isFinished)
             {

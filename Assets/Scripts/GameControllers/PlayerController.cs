@@ -231,11 +231,41 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void  SpeedBoost()
-    {
-        if (playerMovement.iniBoost)
-            playerMovement.iniBoost = false;
+    public void IniSpeedBoost()
+    {   
+        playerMovement.iniBoost = false;
 
+        gameController.PowerUpBtns[0].SetActive(false);
+        gameController.StartCoroutine(gameController.CameraRushIn());
+        gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
+        gameController.LocalPlayer.GetComponent<PlayerMovement>().m_Animator.SetTrigger("boostrun");
+        playerMovement.speedRunning = true;
+        StartCoroutine(IniBoostSpeed());
+    }
+
+    IEnumerator IniBoostSpeed()
+    {
+        if (pv.IsMine)
+        {
+            float temp = gameController.LocalPlayer.GetComponent<PlayerMovement>().runspeed;
+            //gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
+            dataManager.m_TargetSpeed += 20;
+            dataManager.m_MaxRunForce += 800;
+            gameController.speedLine.SetActive(true);
+
+            yield return new WaitForSeconds(1.0f);
+
+            gameController.speedLine.SetActive(false);
+            dataManager.m_TargetSpeed -= 20;
+            dataManager.m_MaxRunForce -= 800;
+            playerMovement.speedRunning = false;
+            //gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
+            gameController.LocalPlayer.GetComponent<PlayerMovement>().runspeed = temp;
+        }
+    }
+
+    public void  SpeedBoost()
+    {   
         gameController.PowerUpBtns[0].SetActive(false);
         gameController.StartCoroutine(gameController.CameraRushIn());
         gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));

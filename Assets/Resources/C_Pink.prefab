@@ -603,6 +603,7 @@ MonoBehaviour:
   m_Animator: {fileID: 8743917095294986973}
   pv: {fileID: 1136602271553801885}
   iniBoost: 0
+  countDownIs: 0
 --- !u!114 &-3122846499524946972
 MonoBehaviour:
   m_ObjectHideFlags: 0
