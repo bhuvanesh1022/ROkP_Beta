@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Rigidbody2D: {fileID: 821950230551156586}
   m_Animator: {fileID: 1506808675}
   pv: {fileID: -7030132597022983606}
+  iniBoost: 0
 --- !u!114 &-739618508805399987
 MonoBehaviour:
   m_ObjectHideFlags: 0

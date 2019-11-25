@@ -233,12 +233,16 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     public void  SpeedBoost()
     {
+        if (playerMovement.iniBoost)
+            playerMovement.iniBoost = false;
+
         gameController.PowerUpBtns[0].SetActive(false);
         gameController.StartCoroutine(gameController.CameraRushIn());
         gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
         gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetTrigger("boostrun");
         playerMovement.speedRunning = true;
         StartCoroutine(BoostSpeed());
+        
     }
 
     IEnumerator BoostSpeed()
@@ -319,11 +323,25 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
 
     [PunRPC]
     public void ShowScoreCard()
-    {   
-        if (dataManager.FinishedRunners.Count == dataManager.Runners.Count)
+    {
+        if (!gameController.LocalPlayer.GetComponent<PlayerController>())
         {
-            StartCoroutine(EnablingScoreBoard());
+            if (gameController.LocalPlayer.GetComponent<DirectorController>())
+            {
+                if (dataManager.FinishedRunners.Count == dataManager.Runners.Count)
+                {
+                    StartCoroutine(EnablingScoreBoard());
+                }
+            }
         }
+        else if (gameController.LocalPlayer.GetComponent<PlayerController>().isFinished)
+        {
+            if (dataManager.FinishedRunners.Count == dataManager.Runners.Count)
+            {
+                StartCoroutine(EnablingScoreBoard());
+            }
+        }
+        
 
         int maxJump = 0, maxThrow = 0, maxHit = 0, maxSpeedBoost = 0;
         string maxJumpUser = "", maxThrowUser = "", maxHitUser = "", maxSpeedBoostUser = "";
