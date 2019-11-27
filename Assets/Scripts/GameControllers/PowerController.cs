@@ -35,6 +35,11 @@ public class PowerController : MonoBehaviourPun, IPunObservable
     {
         CollidedWith = collision.gameObject;
 
+        if (CollidedWith.CompareTag("Player") && powerup == PowerupTypes.Thrown)
+        {
+            Destroy(gameObject, 0.01f);
+        }
+
         if (CollidedWith.CompareTag("Player") && CollidedWith.GetComponent<PlayerController>().pv.IsMine)
         {
             switch (powerup)

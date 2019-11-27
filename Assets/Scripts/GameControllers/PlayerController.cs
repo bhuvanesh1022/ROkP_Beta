@@ -195,6 +195,91 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
     }
 
+    public void IniSpeedBoost()
+    {
+        playerMovement.iniBoost = false;
+
+        gameController.PowerUpBtns[0].SetActive(false);
+        gameController.StartCoroutine(gameController.CameraRushIn());
+        gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
+        gameController.LocalPlayer.GetComponent<PlayerMovement>().m_Animator.SetTrigger("boostrun");
+        playerMovement.speedRunning = true;
+        StartCoroutine(IniBoostSpeed());
+    }
+
+    IEnumerator IniBoostSpeed()
+    {
+        if (pv.IsMine)
+        {
+            float temp = gameController.LocalPlayer.GetComponent<PlayerMovement>().runspeed;
+            dataManager.m_TargetSpeed += 20;
+            dataManager.m_MaxRunForce += 800;
+            gameController.speedLine.SetActive(true);
+
+            yield return new WaitForSeconds(1.0f);
+
+            gameController.speedLine.SetActive(false);
+            dataManager.m_TargetSpeed -= 20;
+            dataManager.m_MaxRunForce -= 800;
+            playerMovement.speedRunning = false;
+            gameController.LocalPlayer.GetComponent<PlayerMovement>().runspeed = temp;
+        }
+    }
+
+    public void SpeedBoost()
+    {
+        gameController.PowerUpBtns[0].SetActive(false);
+        gameController.StartCoroutine(gameController.CameraRushIn());
+        gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
+        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetTrigger("boostrun");
+        playerMovement.speedRunning = true;
+        StartCoroutine(BoostSpeed());
+
+    }
+
+    IEnumerator BoostSpeed()
+    {
+        if (pv.IsMine)
+        {
+            float temp = gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
+            gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
+            dataManager.m_TargetSpeed += 30;
+            dataManager.m_MaxRunForce += 1000;
+            gameController.speedLine.SetActive(true);
+
+            yield return new WaitForSeconds(1.0f);
+
+            gameController.speedLine.SetActive(false);
+            dataManager.m_TargetSpeed -= 30;
+            dataManager.m_MaxRunForce -= 1000;
+            playerMovement.speedRunning = false;
+            gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
+        }
+    }
+
+    public void GotAttack()
+    {
+        NoOfHits++;
+        canRace = false;
+        TriggeredBy.GetComponent<Collider2D>().enabled = false;
+        playerMovement.m_Animator.SetBool("stun", true);
+        playerMovement.stunned = true;
+        gameController.shakeCamera(0.15f, 0.2f, 2.0f);
+        gameController.PlayAudioFX("hit");
+        gameController.GotHit(TriggeredBy.GetComponent<PowerController>().ThrowerName, UserName);
+        Destroy(TriggeredBy);
+        StartCoroutine(StartToRun());
+    }
+
+    IEnumerator StartToRun()
+    {
+        yield return new WaitForSeconds(2f);
+        canRace = true;
+        playerMovement.stunned = false;
+        GetComponent<PlayerMovement>().m_Animator.SetBool("stun", false);
+        gameController.VictimRunners.Remove(gameObject);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -231,94 +316,6 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void IniSpeedBoost()
-    {   
-        playerMovement.iniBoost = false;
-
-        gameController.PowerUpBtns[0].SetActive(false);
-        gameController.StartCoroutine(gameController.CameraRushIn());
-        gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
-        gameController.LocalPlayer.GetComponent<PlayerMovement>().m_Animator.SetTrigger("boostrun");
-        playerMovement.speedRunning = true;
-        StartCoroutine(IniBoostSpeed());
-    }
-
-    IEnumerator IniBoostSpeed()
-    {
-        if (pv.IsMine)
-        {
-            float temp = gameController.LocalPlayer.GetComponent<PlayerMovement>().runspeed;
-            //gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
-            dataManager.m_TargetSpeed += 20;
-            dataManager.m_MaxRunForce += 800;
-            gameController.speedLine.SetActive(true);
-
-            yield return new WaitForSeconds(1.0f);
-
-            gameController.speedLine.SetActive(false);
-            dataManager.m_TargetSpeed -= 20;
-            dataManager.m_MaxRunForce -= 800;
-            playerMovement.speedRunning = false;
-            //gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
-            gameController.LocalPlayer.GetComponent<PlayerMovement>().runspeed = temp;
-        }
-    }
-
-    public void  SpeedBoost()
-    {   
-        gameController.PowerUpBtns[0].SetActive(false);
-        gameController.StartCoroutine(gameController.CameraRushIn());
-        gameController.StartCoroutine(gameController.ShakyCamera(0.15f, 0.2f, 0.5f));
-        gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetTrigger("boostrun");
-        playerMovement.speedRunning = true;
-        StartCoroutine(BoostSpeed());
-        
-    }
-
-    IEnumerator BoostSpeed()
-    {
-        if (pv.IsMine)
-        {
-            float temp = gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed;
-            gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerController>().NoOfSpeedBoost++;
-            dataManager.m_TargetSpeed += 30;
-            dataManager.m_MaxRunForce += 1000;
-            gameController.speedLine.SetActive(true);
-
-            yield return new WaitForSeconds(1.0f);
-
-            gameController.speedLine.SetActive(false);
-            dataManager.m_TargetSpeed -= 30;
-            dataManager.m_MaxRunForce -= 1000;
-            playerMovement.speedRunning = false;
-            //gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().m_Animator.SetBool("boostrun", false);
-            gameController.SpeedPoweredRunners[speedingPlayerIndex].GetComponent<PlayerMovement>().runspeed = temp;
-        }
-    }
-
-    public void GotAttack()
-    {
-        NoOfHits++;
-        canRace = false;
-        TriggeredBy.GetComponent<Collider2D>().enabled = false;
-        playerMovement.m_Animator.SetBool("stun", true);
-        playerMovement.stunned = true;
-        gameController.shakeCamera(0.15f, 0.2f, 2.0f);
-        gameController.PlayAudioFX("hit");
-        StartCoroutine(StartToRun());
-    }
-
-    IEnumerator StartToRun()
-    {
-        gameController.GotHit(TriggeredBy.GetComponent<PowerController>().ThrowerName, UserName);
-        Destroy(TriggeredBy, 0.05f);
-        yield return new WaitForSeconds(2f);
-        canRace = true;
-        playerMovement.stunned = false;
-        GetComponent<PlayerMovement>().m_Animator.SetBool("stun", false);
-        gameController.VictimRunners.Remove(gameObject);
-    }
-
     public void FinishedRace()
     {
         if (!dataManager.FinishedRunners.Contains(GetComponent<PlayerController>()))
@@ -345,33 +342,31 @@ public class PlayerController : MonoBehaviourPun, IPunObservable
             }
         }
 
-        if (pv.IsMine)
+        if (dataManager.FinishedRunners.Count == dataManager.Runners.Count)
         {
             pv.RPC("ShowScoreCard", RpcTarget.AllBuffered, null);
+            Debug.Log("raceFinished");
         }
     }
 
     [PunRPC]
     public void ShowScoreCard()
     {
-        if (!gameController.LocalPlayer.GetComponent<PlayerController>())
-        {
-            if (gameController.LocalPlayer.GetComponent<DirectorController>())
-            {
-                if (dataManager.FinishedRunners.Count == dataManager.Runners.Count)
-                {
-                    StartCoroutine(EnablingScoreBoard());
-                }
-            }
-        }
-        else if (gameController.LocalPlayer.GetComponent<PlayerController>().isFinished)
+        StartCoroutine(EnablingScoreBoard());
+
+        /*
+        if (gameController.LocalPlayer.GetComponent<DirectorController>())
         {
             if (dataManager.FinishedRunners.Count == dataManager.Runners.Count)
             {
                 StartCoroutine(EnablingScoreBoard());
             }
         }
-        
+        else if (gameController.LocalPlayer.GetComponent<PlayerController>().isFinished)
+        {
+
+        }
+        */
 
         int maxJump = 0, maxThrow = 0, maxHit = 0, maxSpeedBoost = 0;
         string maxJumpUser = "", maxThrowUser = "", maxHitUser = "", maxSpeedBoostUser = "";

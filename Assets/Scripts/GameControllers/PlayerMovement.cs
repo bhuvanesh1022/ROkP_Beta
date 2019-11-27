@@ -51,7 +51,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     bool rn;
     bool idl;
-    bool detectableScreenArea;
     public bool iniBoost;
     public int countDownIs;
 
@@ -76,21 +75,6 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        detectableScreenArea = Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f;
-
-        if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (canCountTouch)
-            {
-                if (countDownIs == m_gameController.countdown.Length - 1)
-                {
-                    Debug.Log("speedBoost");
-                    iniBoost = true;
-                }
-                canCountTouch = false;
-            }
-        }
-
         if (m_Grounded)
         {
             transform.localScale = iniScale;
@@ -113,6 +97,19 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
     private void FixedUpdate()
     {
+        if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (canCountTouch && !m_playerController.canRace)
+            {
+                if (countDownIs == m_gameController.countdown.Length - 1)
+                {
+                    Debug.Log("speedBoost");
+                    iniBoost = true;
+                }
+                canCountTouch = false;
+            }
+        }
+
         //Debug.Log(m_playerController.canRace);
         if (m_playerController.canRace)
         {
@@ -152,7 +149,7 @@ public class PlayerMovement : MonoBehaviourPun, IPunObservable
 
         if (Input.touchCount == 1 || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (detectableScreenArea)
+            if (Input.mousePosition.x > Screen.width * .25f || Input.mousePosition.y > Screen.width * .25f)
             {
                 if (canCountTouch)
                 {   
